@@ -44,7 +44,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         String password = loginDTO.getPassword();
         // 2.根据用户名或手机号查询
         User user = lambdaQuery().eq(User::getUsername, username).one();
-        Assert.notNull(user, "用户名错误");
+        Assert.notNull(user, "用户名错误"); // 验证 user 对象是否为 null。如果 user 为 null，那么这行代码会抛出一个 IllegalArgumentException，并且抛出的异常信息为 "用户名错误"
         // 3.校验是否禁用
         if (user.getStatus() == UserStatus.FROZEN) {
             throw new ForbiddenException("用户被冻结");

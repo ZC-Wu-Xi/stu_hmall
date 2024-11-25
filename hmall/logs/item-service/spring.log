@@ -1,0 +1,48 @@
+19:58:18:742  INFO 22076 --- [main] com.hmall.item.ItemApplication           : Starting ItemApplication using Java 11.0.23 on 130com with PID 22076 (D:\workspace\stuspace\javaProject\hm-mall\hmall\item-service\target\classes started by xi in D:\workspace\stuspace\javaProject\hm-mall\hmall)
+19:58:18:745 DEBUG 22076 --- [main] com.hmall.item.ItemApplication           : Running with Spring Boot v2.7.12, Spring v5.3.27
+19:58:18:746  INFO 22076 --- [main] com.hmall.item.ItemApplication           : The following 1 profile is active: "local"
+19:58:20:488  INFO 22076 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8081 (http)
+19:58:20:495  INFO 22076 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+19:58:20:496  INFO 22076 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.75]
+19:58:20:641  INFO 22076 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+19:58:20:641  INFO 22076 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1850 ms
+19:58:21:750  INFO 22076 --- [main] pertySourcedRequestMappingHandlerMapping : Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2ControllerWebMvc#getDocumentation(String, HttpServletRequest)]
+19:58:21:815  INFO 22076 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8081 (http) with context path ''
+19:58:21:816  INFO 22076 --- [main] d.s.w.p.DocumentationPluginsBootstrapper : Documentation plugins bootstrapped
+19:58:21:819  INFO 22076 --- [main] d.s.w.p.DocumentationPluginsBootstrapper : Found 1 custom documentation plugin(s)
+19:58:21:842  INFO 22076 --- [main] s.d.s.w.s.ApiListingReferenceScanner     : Scanning for api listing references
+19:58:21:981  INFO 22076 --- [main] com.hmall.item.ItemApplication           : Started ItemApplication in 3.711 seconds (JVM running for 4.979)
+19:58:25:429  INFO 22076 --- [http-nio-8081-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+19:58:25:430  INFO 22076 --- [http-nio-8081-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+19:58:25:431  INFO 22076 --- [http-nio-8081-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+19:59:50:354  INFO 22076 --- [http-nio-8081-exec-7] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+19:59:50:678  INFO 22076 --- [http-nio-8081-exec-7] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+19:59:50:682 DEBUG 22076 --- [http-nio-8081-exec-7] c.h.item.mapper.ItemMapper.selectById    : ==>  Preparing: SELECT id,name,price,stock,image,category,brand,spec,sold,comment_count,isAD,status,create_time,update_time,creater,updater FROM item WHERE id=?
+19:59:50:698 DEBUG 22076 --- [http-nio-8081-exec-7] c.h.item.mapper.ItemMapper.selectById    : ==> Parameters: 1(Long)
+19:59:50:739 DEBUG 22076 --- [http-nio-8081-exec-7] c.h.item.mapper.ItemMapper.selectById    : <==      Total: 0
+19:59:58:794 DEBUG 22076 --- [http-nio-8081-exec-8] c.h.item.mapper.ItemMapper.selectById    : ==>  Preparing: SELECT id,name,price,stock,image,category,brand,spec,sold,comment_count,isAD,status,create_time,update_time,creater,updater FROM item WHERE id=?
+19:59:58:795 DEBUG 22076 --- [http-nio-8081-exec-8] c.h.item.mapper.ItemMapper.selectById    : ==> Parameters: 2(Long)
+19:59:58:797 DEBUG 22076 --- [http-nio-8081-exec-8] c.h.item.mapper.ItemMapper.selectById    : <==      Total: 0
+19:59:59:717 DEBUG 22076 --- [http-nio-8081-exec-3] c.h.item.mapper.ItemMapper.selectById    : ==>  Preparing: SELECT id,name,price,stock,image,category,brand,spec,sold,comment_count,isAD,status,create_time,update_time,creater,updater FROM item WHERE id=?
+19:59:59:717 DEBUG 22076 --- [http-nio-8081-exec-3] c.h.item.mapper.ItemMapper.selectById    : ==> Parameters: 2(Long)
+19:59:59:718 DEBUG 22076 --- [http-nio-8081-exec-3] c.h.item.mapper.ItemMapper.selectById    : <==      Total: 0
+20:00:01:312 DEBUG 22076 --- [http-nio-8081-exec-5] c.h.item.mapper.ItemMapper.selectById    : ==>  Preparing: SELECT id,name,price,stock,image,category,brand,spec,sold,comment_count,isAD,status,create_time,update_time,creater,updater FROM item WHERE id=?
+20:00:01:313 DEBUG 22076 --- [http-nio-8081-exec-5] c.h.item.mapper.ItemMapper.selectById    : ==> Parameters: 2(Long)
+20:00:01:314 DEBUG 22076 --- [http-nio-8081-exec-5] c.h.item.mapper.ItemMapper.selectById    : <==      Total: 0
+20:00:27:750 DEBUG 22076 --- [http-nio-8081-exec-6] c.h.item.mapper.ItemMapper.selectById    : ==>  Preparing: SELECT id,name,price,stock,image,category,brand,spec,sold,comment_count,isAD,status,create_time,update_time,creater,updater FROM item WHERE id=?
+20:00:27:750 DEBUG 22076 --- [http-nio-8081-exec-6] c.h.item.mapper.ItemMapper.selectById    : ==> Parameters: 4(Long)
+20:00:27:751 DEBUG 22076 --- [http-nio-8081-exec-6] c.h.item.mapper.ItemMapper.selectById    : <==      Total: 0
+20:00:49:582 DEBUG 22076 --- [http-nio-8081-exec-2] c.h.i.mapper.ItemMapper.selectBatchIds   : ==>  Preparing: SELECT id,name,price,stock,image,category,brand,spec,sold,comment_count,isAD,status,create_time,update_time,creater,updater FROM item WHERE id IN ( ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? )
+20:00:49:583 DEBUG 22076 --- [http-nio-8081-exec-2] c.h.i.mapper.ItemMapper.selectBatchIds   : ==> Parameters: 1(Long), 2(Long), 3(Long), 4(Long), 5(Long), 6(Long), 7(Long), 8(Long), 9(Long), 0(Long), 10(Long), 22(Long), 14(Long)
+20:00:49:584 DEBUG 22076 --- [http-nio-8081-exec-2] c.h.i.mapper.ItemMapper.selectBatchIds   : <==      Total: 0
+20:01:35:020 DEBUG 22076 --- [http-nio-8081-exec-4] c.h.i.m.ItemMapper.selectPage_mpCount    : ==>  Preparing: SELECT COUNT(*) FROM item
+20:01:35:021 DEBUG 22076 --- [http-nio-8081-exec-4] c.h.i.m.ItemMapper.selectPage_mpCount    : ==> Parameters: 
+20:01:35:067 DEBUG 22076 --- [http-nio-8081-exec-4] c.h.i.m.ItemMapper.selectPage_mpCount    : <==      Total: 1
+20:01:35:073 DEBUG 22076 --- [http-nio-8081-exec-4] c.h.item.mapper.ItemMapper.selectPage    : ==>  Preparing: SELECT id, name, price, stock, image, category, brand, spec, sold, comment_count, isAD, status, create_time, update_time, creater, updater FROM item ORDER BY update_time DESC LIMIT ?
+20:01:35:074 DEBUG 22076 --- [http-nio-8081-exec-4] c.h.item.mapper.ItemMapper.selectPage    : ==> Parameters: 2(Long)
+20:01:35:080 DEBUG 22076 --- [http-nio-8081-exec-4] c.h.item.mapper.ItemMapper.selectPage    : <==      Total: 2
+20:41:53:321 DEBUG 22076 --- [http-nio-8081-exec-1] c.h.i.mapper.ItemMapper.selectBatchIds   : ==>  Preparing: SELECT id,name,price,stock,image,category,brand,spec,sold,comment_count,isAD,status,create_time,update_time,creater,updater FROM item WHERE id IN ( ? )
+20:41:53:324 DEBUG 22076 --- [http-nio-8081-exec-1] c.h.i.mapper.ItemMapper.selectBatchIds   : ==> Parameters: 100000006163(Long)
+20:41:53:336 DEBUG 22076 --- [http-nio-8081-exec-1] c.h.i.mapper.ItemMapper.selectBatchIds   : <==      Total: 1
+20:44:34:721  INFO 22076 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+20:44:34:731  INFO 22076 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.

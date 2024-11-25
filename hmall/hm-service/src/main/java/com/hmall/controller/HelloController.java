@@ -18,12 +18,13 @@ public class HelloController {
     @GetMapping
     public String hello(HttpServletRequest request) throws InterruptedException {
         Thread.sleep(300);
-        String ip = request.getRemoteAddr();
+        String ip = request.getRemoteAddr(); // 获取客户端 IP 地址
         AtomicInteger ai = countMap.get(ip);
         if (ai == null) {
             ai = new AtomicInteger(0);
             countMap.put(ip, ai);
         }
+        // 自增并返回用户访问次数
         return String.format("<h5>欢迎访问黑马商城, 这是您第%d次访问<h5>", ai.incrementAndGet());
     }
 }

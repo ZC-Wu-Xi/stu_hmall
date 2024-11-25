@@ -29,10 +29,10 @@ public class JwtTool {
     public String createToken(Long userId, Duration ttl) {
         // 1.生成jws
         return JWT.create()
-                .setPayload("user", userId)
-                .setExpiresAt(new Date(System.currentTimeMillis() + ttl.toMillis()))
-                .setSigner(jwtSigner)
-                .sign();
+                .setPayload("user", userId) // 这里设置了 JWT 的有效负载
+                .setExpiresAt(new Date(System.currentTimeMillis() + ttl.toMillis())) // 设置过期时间
+                .setSigner(jwtSigner) // 指定了用于签名 JWT 的签名器
+                .sign(); // 生成并返回签名后的 JWT 字符串
     }
 
     /**
