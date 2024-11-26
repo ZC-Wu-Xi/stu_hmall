@@ -11,7 +11,17 @@ Centos:
 ```shell
 ifup ens33
 ip addr show
-docker compose up -d # 全部启动
+# root 目录下
+docker compose up -d # 启动mysql等
+
+docker run -d \
+--name nacos \
+--env-file ./nacos/custom.env \
+-p 8848:8848 \
+-p 9848:9848 \
+-p 9849:9849 \
+--restart=always \
+nacos/nacos-server:v2.1.0-slim # 启动nacos
 ```
 
 .jks 文件是 Java 密钥库（Java KeyStore）文件的扩展名。它用于存储密钥对和证书，这些密钥和证书通常用于 Java 应用程序的安全通信，例如 SSL/TLS 连接。以下是一些关于 .jks 文件的关键点：

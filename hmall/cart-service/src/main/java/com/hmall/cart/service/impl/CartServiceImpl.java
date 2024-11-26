@@ -1,10 +1,12 @@
 package com.hmall.cart.service.impl;
 
+import cn.hutool.core.util.RandomUtil;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.hmall.api.client.ItemClient;
+import com.hmall.api.dto.ItemDTO;
 import com.hmall.cart.domain.dto.CartFormDTO;
-import com.hmall.cart.domain.dto.ItemDTO;
 import com.hmall.cart.domain.po.Cart;
 import com.hmall.cart.domain.vo.CartVO;
 import com.hmall.cart.mapper.CartMapper;
@@ -14,6 +16,8 @@ import com.hmall.common.utils.BeanUtils;
 import com.hmall.common.utils.CollUtils;
 import com.hmall.common.utils.UserContext;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cloud.client.ServiceInstance;
+import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
@@ -38,11 +42,11 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor // 必备参数的构造函数
 public class CartServiceImpl extends ServiceImpl<CartMapper, Cart> implements ICartService {
+    // 构造函数注入
+//    private final RestTemplate restTemplate; // 远程调用
+//    private final DiscoveryClient discoveryClient; // 服务注册发现
 
-//    private final IItemService itemService;
-
-    private final RestTemplate restTemplate; // 构造函数注入
-
+    private final ItemClient itemClient; // item-service微服务通过openFeign对外暴露的接口
 
     @Override
     public void addItem2Cart(CartFormDTO cartFormDTO) {
@@ -89,10 +93,19 @@ public class CartServiceImpl extends ServiceImpl<CartMapper, Cart> implements IC
         // TODO 1.获取商品id
         Set<Long> itemIds = vos.stream().map(CartVO::getItemId).collect(Collectors.toSet());
         // 2.查询商品
-//        List<ItemDTO> items = itemService.queryItemByIds(itemIds);
-        // 2.1 利用 RestTemplate 远程发起 http 请求，得到 http 响应
+        /*
+        // 使用restTemplate+DiscoveryClient
+        // 2.1 根据服务名称获取服务的实例列表
+        List<ServiceInstance> instances = discoveryClient.getInstances("item-service");
+        if (CollUtils.isEmpty(instances)) {
+            return;
+        }
+        // 2.2 手写负载均衡，从实例列表中随机挑选一个实例
+        ServiceInstance instance = instances.get(RandomUtil.randomInt(instances.size()));
+        // 2.3 利用 RestTemplate 远程发起 http 请求，得到 http 响应
         ResponseEntity<List<ItemDTO>> response = restTemplate.exchange(
-                "http://localhost:8081/items?ids={ids}",
+//                "http://localhost:8081/items?ids={ids}",
+                instance.getUri() + "/items?ids={ids}",
                 HttpMethod.GET,
                 null,
 //                List<ItemDTO>.class // 不能用这个，字节码文件的泛型会被擦除
@@ -106,6 +119,9 @@ public class CartServiceImpl extends ServiceImpl<CartMapper, Cart> implements IC
             return;
         }
         List<ItemDTO> items = response.getBody();
+        */
+        // 优化 使用openfeign
+        List<ItemDTO> items = itemClient.queryItemByIds(itemIds);
         if (CollUtils.isEmpty(items)) {
             // 查询到结果为空
             return;

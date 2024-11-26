@@ -10,6 +10,9 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
     password: ${hm.db.pw}
+  cloud:
+    nacos: # nacos服务注册发现
+      server-addr: 192.168.244.129:8848
 mybatis-plus:
   configuration:
     default-enum-type-handler: com.baomidou.mybatisplus.core.handlers.MybatisEnumTypeHandler
@@ -39,3 +42,6 @@ knife4j: # 丝袜哥配置 api文档
         api-rule: package
         api-rule-resources:
           - com.hmall.cart.controller
+feign: # openfeign 远程调用 默认http客户端为HttpURLConnection不支持连接池，效率较低
+  okhttp: # okhttp http客户端，支持连接池，效率较高
+    enabled: true # 开启 okhttp 连接池

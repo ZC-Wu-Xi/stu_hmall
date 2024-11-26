@@ -1227,7 +1227,17 @@ Java发送http请求可以使用Spring提供的RestTemplate，使用的基本步
 
 其中的`nacos/custom.env`文件中，有一个MYSQL_SERVICE_HOST也就是mysql地址，需要修改为你自己的虚拟机IP地址：
 
-![img](./hmallImg/1732434107797-68.png)
+```bash
+PREFER_HOST_MODE=hostname
+MODE=standalone
+SPRING_DATASOURCE_PLATFORM=mysql
+MYSQL_SERVICE_HOST=192.168.244.129
+MYSQL_SERVICE_DB_NAME=nacos
+MYSQL_SERVICE_PORT=3306
+MYSQL_SERVICE_USER=root
+MYSQL_SERVICE_PASSWORD=123456
+MYSQL_SERVICE_DB_PARAM=characterEncoding=utf8&connectTimeout=1000&socketTimeout=3000&autoReconnect=true&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Shanghai
+```
 
 然后，将课前资料中的`nacos`目录上传至虚拟机的`/root`目录。
 
@@ -1244,7 +1254,7 @@ docker run -d \
 nacos/nacos-server:v2.1.0-slim
 ```
 
-启动完成后，访问下面地址：http://192.168.150.101:8848/nacos/，注意将`192.168.150.101`替换为你自己的虚拟机IP地址。
+启动完成后，访问下面地址：http://192.168.244.129:8848/nacos/，注意将`192.168.244.129`替换为你自己的虚拟机IP地址。
 
 首次访问会跳转到登录页，**账号密码都是nacos**
 
@@ -1280,7 +1290,7 @@ spring:
     name: item-service # 服务名称
   cloud:
     nacos:
-      server-addr: 192.168.150.101:8848 # nacos地址
+      server-addr: 192.168.244.129:8848 # nacos地址
 ```
 
 ### 3.3.3.启动服务实例
@@ -1339,7 +1349,7 @@ spring:
 spring:
   cloud:
     nacos:
-      server-addr: 192.168.150.101:8848
+      server-addr: 192.168.244.129:8848
 ```
 
 ### 3.4.3.发现并调用服务
@@ -1400,21 +1410,21 @@ spring:
 在`cart-service`服务的pom.xml中引入`OpenFeign`的依赖和`loadBalancer`依赖：
 
 ```XML
-  <!--openFeign-->
-  <dependency>
-      <groupId>org.springframework.cloud</groupId>
-      <artifactId>spring-cloud-starter-openfeign</artifactId>
-  </dependency>
-  <!--负载均衡器-->
-  <dependency>
-      <groupId>org.springframework.cloud</groupId>
-      <artifactId>spring-cloud-starter-loadbalancer</artifactId>
-  </dependency>
+<!--openFeign-->
+<dependency>
+    <groupId>org.springframework.cloud</groupId>
+    <artifactId>spring-cloud-starter-openfeign</artifactId>
+</dependency>
+<!--负载均衡器-->
+<dependency>
+    <groupId>org.springframework.cloud</groupId>
+    <artifactId>spring-cloud-starter-loadbalancer</artifactId>
+</dependency>
 ```
 
 ### 4.1.2.启用OpenFeign
 
-接下来，我们在`cart-service`的`CartApplication`启动类上添加注解，启动OpenFeign功能：
+接下来，我们在`cart-service`的`CartApplication`启动类上添加注解`@EnableFeignClients`，启动OpenFeign功能：
 
 ![img](./hmallImg/1732434107797-79.png)
 
@@ -1491,9 +1501,9 @@ Feign底层发起http请求，依赖于其它的框架。其底层支持的http�
 在`cart-service`的`application.yml`配置文件中开启Feign的连接池功能：
 
 ```YAML
-feign:
-  okhttp:
-    enabled: true # 开启OKHttp功能
+feign: # openfeign 远程调用 默认http客户端为HttpURLConnection不支持连接池，效率较低
+  okhttp: # okhttp http客户端，支持连接池，效率较高
+    enabled: true # 开启 okhttp 连接池
 ```
 
 重启服务，连接池就生效了。
@@ -1627,9 +1637,11 @@ Debug方式启动cart-service，请求一次查询我的购物车方法，进入
 
 ## 4.4.日志配置
 
+平时开发不建议开启日志，日志特别多；仅建议在调试时开启日志
+
 OpenFeign只会在FeignClient所在包的日志级别为**DEBUG**时，才会输出日志。而且其日志级别有4级：
 
-- **NONE**：不记录任何日志信息，这是默认值。
+- **NONE**：不记录任何日志信息，这是**默认值**。
 - **BASIC**：仅记录请求的方法，URL以及响应状态码和执行时间
 - **HEADERS**：在BASIC的基础上，额外记录了请求和响应的头信息
 - **FULL**：记录所有请求和响应的明细，包括头信息、请求体、元数据。
@@ -1640,16 +1652,28 @@ Feign默认的日志级别就是NONE，所以默认我们看不到请求日志�
 
 在hm-api模块下新建一个配置类，定义Feign的日志级别：
 
-![img](./hmallImg/1732434107798-90.png)
-
-代码如下：
-
-```Java
+```java
 package com.hmall.api.config;
 
 import feign.Logger;
 import org.springframework.context.annotation.Bean;
 
+public class DefaultFeignConfig {
+    @Bean
+    public Logger.Level feignLoggerLevel() {
+        return Logger.Level.FULL; // feign的日志级别
+    }
+}
+```
+
+**要自定义日志级别需要声明一个类型为Logger.Level的Bean，在其中定义日志级别：**
+
+代码如下：
+
+```Java
+package com.hmall.api.config;
+import feign.Logger;
+import org.springframework.context.annotation.Bean;
 public class DefaultFeignConfig {
     @Bean
     public Logger.Level feignLogLevel(){
@@ -1660,18 +1684,18 @@ public class DefaultFeignConfig {
 
 ### 4.4.2.配置
 
-接下来，要让日志级别生效，还需要配置这个类。有两种方式：
+但此时这个Bean并未生效，要想配置某个FeignClient的日志，还需要配置这个类。有两种方式：
 
-- **局部**生效：在某个`FeignClient`中配置，只对当前`FeignClient`生效
+- **局部**生效：在某个`FeignClient`(在openFeign暴露接口上)中配置，只对当前`FeignClient`生效
 
 ```Java
-@FeignClient(value = "item-service", configuration = DefaultFeignConfig.class)
+@FeignClient(value = "item-service", configuration = DefaultFeignConfig.class) // openFeign暴露的接口类
 ```
 
-- **全局**生效：在`@EnableFeignClients`中配置，针对所有`FeignClient`生效。
+- **全局**生效：在`@EnableFeignClients`（在启动类上）中配置，针对所有`FeignClient`生效。
 
 ```Java
-@EnableFeignClients(defaultConfiguration = DefaultFeignConfig.class)
+@EnableFeignClients(defaultConfiguration = DefaultFeignConfig.class)// 启动类
 ```
 
 日志格式：
