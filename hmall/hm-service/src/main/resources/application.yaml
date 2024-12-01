@@ -39,14 +39,14 @@ knife4j:
         api-rule: package
         api-rule-resources:
           - com.hmall.controller
-hm:
+hm: # 自定义的配置 实现jwt校验
   jwt:
     location: classpath:hmall.jks
     alias: hmall
     password: hmall123
     tokenTTL: 30m
   auth:
-    excludePaths:
+    excludePaths: # 放行的一些路径
       - /search/**
       - /users/login
       - /items/**

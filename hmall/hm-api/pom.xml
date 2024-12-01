@@ -19,6 +19,12 @@
     </properties>
 
     <dependencies>
+        <!-- common -->
+        <dependency>
+            <groupId>com.heima</groupId>
+            <artifactId>hm-common</artifactId>
+            <version>1.0.0</version>
+        </dependency>
         <!--openFeign远程调用-->
         <dependency>
             <groupId>org.springframework.cloud</groupId>

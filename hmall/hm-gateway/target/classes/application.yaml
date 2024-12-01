@@ -1,0 +1,50 @@
+server:
+  port: 8080
+#spring:
+#  application:
+#    name: gateway
+#  cloud:
+#    nacos:
+#      server-addr: 192.168.244.130:8848
+#    gateway:
+##      default-filters: # default-filters下的过滤器可以作用于所有路由
+##        - AddRequestHeader=truth, da me yo da me da me # 添加请求头的过滤器，可以给请求添加一个请求头并传递到下游微服务
+##        - PrintAny # 自定义的过滤器
+##        - PrintAny=a,bb,ccc
+#      routes:
+#        - id: item # 路由规则id，自定义，唯一
+#          uri: lb://item-service # 路由的目标服务，lb代表负载均衡，会从注册中心拉取服务列表
+#          predicates: # 路由断言，判断当前请求是否符合当前规则，符合则路由到目标服务
+##            - Path=/items/**
+##            - Path=/search/**
+#            - Path=/items/**,/search/** # 这里是以请求路径作为判断规则
+##          filters:
+##            - AddRequestHeader=truth, da me yo da me da me # - AddRequestHeader=key, value 添加请求头的过滤器，可以给请求添加一个请求头并传递到下游微服务
+#        - id: user
+#          uri: lb://user-service
+#          predicates:
+#            - Path=/addresses/**,/users/**
+#        - id: trade
+#          uri: lb://trade-service
+#          predicates:
+#            - Path=/orders/**
+#        - id: pay
+#          uri: lb://pay-service
+#          predicates:
+#            - Path=/pay-orders/**
+#        - id: cart
+#          uri: lb://cart-service
+#          predicates:
+#            - Path=/carts/**
+hm: # 自定义的配置 实现jwt校验
+  jwt:
+    location: classpath:hmall.jks
+    alias: hmall
+    password: hmall123
+    tokenTTL: 30m
+  auth:
+    excludePaths: # 放行的一些路径
+      - /search/**
+      - /users/login
+      - /items/**
+      - /hi

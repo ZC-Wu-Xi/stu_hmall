@@ -1,0 +1,18 @@
+# SpringCloud在初始化上下文的时候会先读取一个名为`bootstrap.yaml`(或者`bootstrap.properties`)的文件，如果我们将nacos地址配置到`bootstrap.yaml`中，那么在项目引导阶段就可以读取nacos中的配置了。
+# 加载文件顺序：
+#  项目启动->加载bootstrap.yaml文件-拉取nacos配置->初始化ApplicationContext->加载application.yaml->合并配置->合并ApplicationContext
+spring:
+  application:
+    name: cart-service # 微服务名称
+  profiles:
+    active: dev
+  cloud:
+    nacos: # nacos服务注册发现
+      server-addr: 192.168.244.130:8848
+      config:
+        file-extension: yaml # 文件后缀名
+        shared-configs: # 共享配置 拉取nacos配置中心的配置问文件到本地
+          - data-id: shared-jdbc.yaml
+          - data-id: shared-log.yaml
+          - data-id: shared-swagger.yaml
+
