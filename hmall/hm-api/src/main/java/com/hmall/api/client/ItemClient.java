@@ -1,5 +1,6 @@
 package com.hmall.api.client;
 
+import com.hmall.api.client.fallback.ItemClientFallbackFactory;
 import com.hmall.api.dto.ItemDTO;
 import com.hmall.api.dto.OrderDetailDTO;
 import org.springframework.cloud.openfeign.FeignClient;
@@ -16,7 +17,8 @@ import java.util.List;
  * @date 2024/11/26 14:11
  * @description OpenFeign 远程调用 item-service 微服务的接口
  */
-@FeignClient("item-service") // 远程调用的微服务名字
+//@FeignClient("item-service") // 远程调用的微服务名字
+@FeignClient(value = "item-service", fallbackFactory = ItemClientFallbackFactory.class) // value:远程调用的微服务名字 // fallbackFactory: 编写远程调用降级处理逻辑的类
 public interface ItemClient {
     @GetMapping("/items")
     List<ItemDTO> queryItemByIds(@RequestParam("ids") Collection<Long> ids);

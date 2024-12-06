@@ -14,7 +14,7 @@ ip addr show
 # root 目录下
 docker compose up -d # 启动mysql等
 
-docker start nacos
+docker start nacos # 这个
 
 docker rm -f nacos
 
@@ -26,9 +26,27 @@ docker run -d \
 -p 9849:9849 \
 --restart=always \
 nacos/nacos-server:v2.1.0-slim # 启动nacos
+
+docker network ls # 查看网络
+
+docker inspect mysql # 查看mysql网络
+
+docker network connect hmall nacos # 将nacos容器加入hmall网络中
+# seata需要和mysql及nacos在同一个网络
+docker run --name seata \
+-p 8099:8099 \
+-p 7099:7099 \
+-e SEATA_IP=192.168.244.130 \
+-v ./seata:/seata-server/resources \
+--privileged=true \
+--network hmall \
+-d \
+seataio/seata-server:1.5.2 # 启动seata
 ```
 
 http://192.168.244.130:8848/nacos
+
+http://192.168.244.130:7099/#/login admin
 
 .jks 文件是 Java 密钥库（Java KeyStore）文件的扩展名。它用于存储密钥对和证书，这些密钥和证书通常用于 Java 应用程序的安全通信，例如 SSL/TLS 连接。以下是一些关于 .jks 文件的关键点：
 

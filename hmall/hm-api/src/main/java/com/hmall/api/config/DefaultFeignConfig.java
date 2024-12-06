@@ -1,5 +1,6 @@
 package com.hmall.api.config;
 
+import com.hmall.api.client.fallback.ItemClientFallbackFactory;
 import com.hmall.common.utils.UserContext;
 import feign.Logger;
 import feign.RequestInterceptor;
@@ -33,5 +34,14 @@ public class DefaultFeignConfig {
                 }
             }
         };
+    }
+
+    /**
+     * 将定义好的远程调用item-service的fallback注册为bean
+     * @return
+     */
+    @Bean
+    public ItemClientFallbackFactory itemClientFallbackFactory() {
+        return new ItemClientFallbackFactory();
     }
 }

@@ -1,151 +1,147 @@
-14:00:27:393  INFO 21088 --- [main] com.hmall.pay.PayApplication             : Starting PayApplication using Java 11.0.23 on 130com with PID 21088 (D:\workspace\stuspace\javaProject\hm-mall\hmall\pay-service\target\classes started by xi in D:\workspace\stuspace\javaProject\hm-mall\hmall)
-14:00:27:409 DEBUG 21088 --- [main] com.hmall.pay.PayApplication             : Running with Spring Boot v2.7.12, Spring v5.3.27
-14:00:27:411  INFO 21088 --- [main] com.hmall.pay.PayApplication             : The following 1 profile is active: "local"
-14:00:29:919  INFO 21088 --- [main] o.s.cloud.context.scope.GenericScope     : BeanFactory id=01d8b01a-9dca-395a-8a21-45a8fef661c6
-14:00:30:583  INFO 21088 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8086 (http)
-14:00:30:626  INFO 21088 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-14:00:30:627  INFO 21088 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.75]
-14:00:30:926  INFO 21088 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
-14:00:30:926  INFO 21088 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 3403 ms
-14:00:31:228  INFO 21088 --- [main] o.s.c.openfeign.FeignClientFactoryBean   : For 'user-service' URL not provided. Will try picking an instance via load-balancing.
-14:00:31:355  INFO 21088 --- [main] o.s.c.openfeign.FeignClientFactoryBean   : For 'trade-service' URL not provided. Will try picking an instance via load-balancing.
-14:00:35:855  INFO 21088 --- [main] o.s.cloud.commons.util.InetUtils         : Cannot determine local hostname
-14:00:35:902  INFO 21088 --- [main] pertySourcedRequestMappingHandlerMapping : Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2ControllerWebMvc#getDocumentation(String, HttpServletRequest)]
-14:00:37:338  INFO 21088 --- [main] o.s.cloud.commons.util.InetUtils         : Cannot determine local hostname
-14:00:37:668  INFO 21088 --- [main] com.alibaba.nacos.common.remote.client   : [RpcClientFactory] create a new rpc client of c2cf342f-9a8b-497a-b4e3-8a40e62e434b
-14:00:37:923  INFO 21088 --- [main] org.reflections.Reflections              : Reflections took 47 ms to scan 1 urls, producing 3 keys and 6 values 
-14:00:37:974  INFO 21088 --- [main] org.reflections.Reflections              : Reflections took 19 ms to scan 1 urls, producing 4 keys and 9 values 
-14:00:37:992  INFO 21088 --- [main] org.reflections.Reflections              : Reflections took 13 ms to scan 1 urls, producing 3 keys and 10 values 
-14:00:37:998  WARN 21088 --- [main] org.reflections.Reflections              : given scan urls are empty. set urls in the configuration
-14:00:38:010  INFO 21088 --- [main] org.reflections.Reflections              : Reflections took 11 ms to scan 1 urls, producing 1 keys and 5 values 
-14:00:38:028  INFO 21088 --- [main] org.reflections.Reflections              : Reflections took 14 ms to scan 1 urls, producing 1 keys and 7 values 
-14:00:38:043  INFO 21088 --- [main] org.reflections.Reflections              : Reflections took 10 ms to scan 1 urls, producing 2 keys and 8 values 
-14:00:38:047  WARN 21088 --- [main] org.reflections.Reflections              : given scan urls are empty. set urls in the configuration
-14:00:38:050  INFO 21088 --- [main] com.alibaba.nacos.common.remote.client   : [c2cf342f-9a8b-497a-b4e3-8a40e62e434b] RpcClient init label, labels = {module=naming, source=sdk}
-14:00:38:053  INFO 21088 --- [main] com.alibaba.nacos.common.remote.client   : [c2cf342f-9a8b-497a-b4e3-8a40e62e434b] RpcClient init, ServerListFactory = com.alibaba.nacos.client.naming.core.ServerListManager
-14:00:38:053  INFO 21088 --- [main] com.alibaba.nacos.common.remote.client   : [c2cf342f-9a8b-497a-b4e3-8a40e62e434b] Registry connection listener to current client:com.alibaba.nacos.client.naming.remote.gprc.redo.NamingGrpcRedoService
-14:00:38:054  INFO 21088 --- [main] com.alibaba.nacos.common.remote.client   : [c2cf342f-9a8b-497a-b4e3-8a40e62e434b] Register server push request handler:com.alibaba.nacos.client.naming.remote.gprc.NamingPushRequestHandler
-14:00:38:057  INFO 21088 --- [main] com.alibaba.nacos.common.remote.client   : [c2cf342f-9a8b-497a-b4e3-8a40e62e434b] Try to connect to server on start up, server: {serverIp = '192.168.244.130', server main port = 8848}
-14:00:39:827  INFO 21088 --- [main] com.alibaba.nacos.common.remote.client   : [c2cf342f-9a8b-497a-b4e3-8a40e62e434b] Success to connect to server [192.168.244.130:8848] on start up, connectionId = 1733032839094_192.168.244.1_57966
-14:00:39:828  INFO 21088 --- [com.alibaba.nacos.client.remote.worker] com.alibaba.nacos.common.remote.client   : [c2cf342f-9a8b-497a-b4e3-8a40e62e434b] Notify connected event to listeners.
-14:00:39:829  INFO 21088 --- [main] com.alibaba.nacos.common.remote.client   : [c2cf342f-9a8b-497a-b4e3-8a40e62e434b] Register server push request handler:com.alibaba.nacos.common.remote.client.RpcClient$ConnectResetRequestHandler
-14:00:39:830  INFO 21088 --- [main] com.alibaba.nacos.common.remote.client   : [c2cf342f-9a8b-497a-b4e3-8a40e62e434b] Register server push request handler:com.alibaba.nacos.common.remote.client.RpcClient$$Lambda$978/0x00000008006a3040
-14:00:39:919  INFO 21088 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8086 (http) with context path ''
-14:00:39:931  INFO 21088 --- [main] c.a.c.n.registry.NacosServiceRegistry    : nacos registry, DEFAULT_GROUP pay-service 192.168.229.1:8086 register finished
-14:00:40:413  INFO 21088 --- [nacos-grpc-client-executor-9] com.alibaba.nacos.common.remote.client   : [c2cf342f-9a8b-497a-b4e3-8a40e62e434b] Receive server push request, request = NotifySubscriberRequest, requestId = 6
-14:00:40:425  INFO 21088 --- [nacos-grpc-client-executor-9] com.alibaba.nacos.common.remote.client   : [c2cf342f-9a8b-497a-b4e3-8a40e62e434b] Ack server push request, request = NotifySubscriberRequest, requestId = 6
-14:00:41:217  INFO 21088 --- [main] o.s.cloud.commons.util.InetUtils         : Cannot determine local hostname
-14:00:41:218  INFO 21088 --- [main] d.s.w.p.DocumentationPluginsBootstrapper : Documentation plugins bootstrapped
-14:00:41:222  INFO 21088 --- [main] d.s.w.p.DocumentationPluginsBootstrapper : Found 1 custom documentation plugin(s)
-14:00:41:265  INFO 21088 --- [main] s.d.s.w.s.ApiListingReferenceScanner     : Scanning for api listing references
-14:00:41:438  INFO 21088 --- [main] com.hmall.pay.PayApplication             : Started PayApplication in 16.605 seconds (JVM running for 18.047)
-14:21:50:291  INFO 21088 --- [http-nio-8086-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
-14:21:50:291  INFO 21088 --- [http-nio-8086-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
-14:21:50:294  INFO 21088 --- [http-nio-8086-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 2 ms
-14:21:50:431  INFO 21088 --- [http-nio-8086-exec-2] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-14:21:50:720  INFO 21088 --- [http-nio-8086-exec-2] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-14:21:50:729 DEBUG 21088 --- [http-nio-8086-exec-2] c.h.pay.mapper.PayOrderMapper.selectOne  : ==>  Preparing: SELECT id,biz_order_no,pay_order_no,biz_user_id,pay_channel_code,amount,pay_type,status,expand_json,result_code,result_msg,pay_success_time,pay_over_time,qr_code_url,create_time,update_time,creater,updater,is_delete FROM pay_order WHERE (biz_order_no = ?)
-14:21:50:747 DEBUG 21088 --- [http-nio-8086-exec-2] c.h.pay.mapper.PayOrderMapper.selectOne  : ==> Parameters: 1863106209121914882(Long)
-14:21:50:768 DEBUG 21088 --- [http-nio-8086-exec-2] c.h.pay.mapper.PayOrderMapper.selectOne  : <==      Total: 0
-14:21:50:818 DEBUG 21088 --- [http-nio-8086-exec-2] c.h.pay.mapper.PayOrderMapper.insert     : ==>  Preparing: INSERT INTO pay_order ( id, biz_order_no, pay_order_no, biz_user_id, pay_channel_code, amount, pay_type, status, pay_over_time ) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ? )
-14:21:50:821 DEBUG 21088 --- [http-nio-8086-exec-2] c.h.pay.mapper.PayOrderMapper.insert     : ==> Parameters: 1863106213576298499(Long), 1863106209121914882(Long), 1863106213576298498(Long), 2(Long), balance(String), 71800(Integer), 5(Integer), 1(Integer), 2024-12-01T16:21:50.811409200(LocalDateTime)
-14:21:50:829 DEBUG 21088 --- [http-nio-8086-exec-2] c.h.pay.mapper.PayOrderMapper.insert     : <==    Updates: 1
-14:38:49:618 DEBUG 21088 --- [http-nio-8086-exec-4] c.h.pay.mapper.PayOrderMapper.selectOne  : ==>  Preparing: SELECT id,biz_order_no,pay_order_no,biz_user_id,pay_channel_code,amount,pay_type,status,expand_json,result_code,result_msg,pay_success_time,pay_over_time,qr_code_url,create_time,update_time,creater,updater,is_delete FROM pay_order WHERE (biz_order_no = ?)
-14:38:49:619 DEBUG 21088 --- [http-nio-8086-exec-4] c.h.pay.mapper.PayOrderMapper.selectOne  : ==> Parameters: 1863110485974011906(Long)
-14:38:49:621 DEBUG 21088 --- [http-nio-8086-exec-4] c.h.pay.mapper.PayOrderMapper.selectOne  : <==      Total: 0
-14:38:49:623 DEBUG 21088 --- [http-nio-8086-exec-4] c.h.pay.mapper.PayOrderMapper.insert     : ==>  Preparing: INSERT INTO pay_order ( id, biz_order_no, pay_order_no, biz_user_id, pay_channel_code, amount, pay_type, status, pay_over_time ) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ? )
-14:38:49:625 DEBUG 21088 --- [http-nio-8086-exec-4] c.h.pay.mapper.PayOrderMapper.insert     : ==> Parameters: 1863110486745796610(Long), 1863110485974011906(Long), 1863110486745796609(Long), 2(Long), balance(String), 379500(Integer), 5(Integer), 1(Integer), 2024-12-01T16:38:49.622902400(LocalDateTime)
-14:38:49:629 DEBUG 21088 --- [http-nio-8086-exec-4] c.h.pay.mapper.PayOrderMapper.insert     : <==    Updates: 1
-14:40:13:312  WARN 21088 --- [Thread-7] c.a.n.common.http.HttpClientBeanHolder   : [HttpClientBeanHolder] Start destroying common HttpClient
-14:40:13:312  WARN 21088 --- [Thread-4] c.a.nacos.common.notify.NotifyCenter     : [NotifyCenter] Start destroying Publisher
-14:40:13:313  WARN 21088 --- [Thread-4] c.a.nacos.common.notify.NotifyCenter     : [NotifyCenter] Destruction of the end
-14:40:13:315  WARN 21088 --- [Thread-7] c.a.n.common.http.HttpClientBeanHolder   : [HttpClientBeanHolder] Destruction of the end
-14:40:13:841  INFO 21088 --- [SpringApplicationShutdownHook] c.a.c.n.registry.NacosServiceRegistry    : De-registering from Nacos Server now...
-14:40:13:858  INFO 21088 --- [SpringApplicationShutdownHook] c.a.c.n.registry.NacosServiceRegistry    : De-registration finished.
-14:40:14:195  INFO 21088 --- [SpringApplicationShutdownHook] com.alibaba.nacos.common.remote.client   : Shutdown rpc client, set status to shutdown
-14:40:14:195  INFO 21088 --- [SpringApplicationShutdownHook] com.alibaba.nacos.common.remote.client   : Shutdown client event executor java.util.concurrent.ScheduledThreadPoolExecutor@23101935[Running, pool size = 2, active threads = 2, queued tasks = 0, completed tasks = 0]
-14:40:14:195  INFO 21088 --- [SpringApplicationShutdownHook] com.alibaba.nacos.common.remote.client   : Close current connection 1733032839094_192.168.244.1_57966
-14:40:14:198  INFO 21088 --- [nacos-grpc-client-executor-510] c.a.n.c.remote.client.grpc.GrpcClient    : [1733032839094_192.168.244.1_57966]Ignore complete event,isRunning:false,isAbandon=false
-14:40:14:204  INFO 21088 --- [SpringApplicationShutdownHook] c.a.n.c.remote.client.grpc.GrpcClient    : Shutdown grpc executor java.util.concurrent.ThreadPoolExecutor@71c96d79[Running, pool size = 5, active threads = 0, queued tasks = 0, completed tasks = 511]
-14:40:14:212  INFO 21088 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
-14:40:14:250  INFO 21088 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
-14:40:42:668  INFO 24012 --- [main] com.hmall.pay.PayApplication             : Starting PayApplication using Java 11.0.23 on 130com with PID 24012 (D:\workspace\stuspace\javaProject\hm-mall\hmall\pay-service\target\classes started by xi in D:\workspace\stuspace\javaProject\hm-mall\hmall)
-14:40:42:673 DEBUG 24012 --- [main] com.hmall.pay.PayApplication             : Running with Spring Boot v2.7.12, Spring v5.3.27
-14:40:42:673  INFO 24012 --- [main] com.hmall.pay.PayApplication             : The following 1 profile is active: "local"
-14:40:44:142  INFO 24012 --- [main] o.s.cloud.context.scope.GenericScope     : BeanFactory id=01d8b01a-9dca-395a-8a21-45a8fef661c6
-14:40:44:508  INFO 24012 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8086 (http)
-14:40:44:518  INFO 24012 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-14:40:44:518  INFO 24012 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.75]
-14:40:44:612  INFO 24012 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
-14:40:44:612  INFO 24012 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1878 ms
-14:40:44:749  INFO 24012 --- [main] o.s.c.openfeign.FeignClientFactoryBean   : For 'user-service' URL not provided. Will try picking an instance via load-balancing.
-14:40:44:787  INFO 24012 --- [main] o.s.c.openfeign.FeignClientFactoryBean   : For 'trade-service' URL not provided. Will try picking an instance via load-balancing.
-14:40:47:154  INFO 24012 --- [main] o.s.cloud.commons.util.InetUtils         : Cannot determine local hostname
-14:40:47:186  INFO 24012 --- [main] pertySourcedRequestMappingHandlerMapping : Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2ControllerWebMvc#getDocumentation(String, HttpServletRequest)]
-14:40:48:988  INFO 24012 --- [main] o.s.cloud.commons.util.InetUtils         : Cannot determine local hostname
-14:40:49:174  INFO 24012 --- [main] com.alibaba.nacos.common.remote.client   : [RpcClientFactory] create a new rpc client of 9029145a-0373-4b30-a068-a965cf1a4a97
-14:40:49:213  INFO 24012 --- [main] org.reflections.Reflections              : Reflections took 19 ms to scan 1 urls, producing 3 keys and 6 values 
-14:40:49:264  INFO 24012 --- [main] org.reflections.Reflections              : Reflections took 13 ms to scan 1 urls, producing 4 keys and 9 values 
-14:40:49:275  INFO 24012 --- [main] org.reflections.Reflections              : Reflections took 7 ms to scan 1 urls, producing 3 keys and 10 values 
-14:40:49:277  WARN 24012 --- [main] org.reflections.Reflections              : given scan urls are empty. set urls in the configuration
-14:40:49:288  INFO 24012 --- [main] org.reflections.Reflections              : Reflections took 10 ms to scan 1 urls, producing 1 keys and 5 values 
-14:40:49:299  INFO 24012 --- [main] org.reflections.Reflections              : Reflections took 9 ms to scan 1 urls, producing 1 keys and 7 values 
-14:40:49:313  INFO 24012 --- [main] org.reflections.Reflections              : Reflections took 11 ms to scan 1 urls, producing 2 keys and 8 values 
-14:40:49:316  WARN 24012 --- [main] org.reflections.Reflections              : given scan urls are empty. set urls in the configuration
-14:40:49:318  INFO 24012 --- [main] com.alibaba.nacos.common.remote.client   : [9029145a-0373-4b30-a068-a965cf1a4a97] RpcClient init label, labels = {module=naming, source=sdk}
-14:40:49:320  INFO 24012 --- [main] com.alibaba.nacos.common.remote.client   : [9029145a-0373-4b30-a068-a965cf1a4a97] RpcClient init, ServerListFactory = com.alibaba.nacos.client.naming.core.ServerListManager
-14:40:49:320  INFO 24012 --- [main] com.alibaba.nacos.common.remote.client   : [9029145a-0373-4b30-a068-a965cf1a4a97] Registry connection listener to current client:com.alibaba.nacos.client.naming.remote.gprc.redo.NamingGrpcRedoService
-14:40:49:321  INFO 24012 --- [main] com.alibaba.nacos.common.remote.client   : [9029145a-0373-4b30-a068-a965cf1a4a97] Register server push request handler:com.alibaba.nacos.client.naming.remote.gprc.NamingPushRequestHandler
-14:40:49:322  INFO 24012 --- [main] com.alibaba.nacos.common.remote.client   : [9029145a-0373-4b30-a068-a965cf1a4a97] Try to connect to server on start up, server: {serverIp = '192.168.244.130', server main port = 8848}
-14:40:50:343  INFO 24012 --- [main] com.alibaba.nacos.common.remote.client   : [9029145a-0373-4b30-a068-a965cf1a4a97] Success to connect to server [192.168.244.130:8848] on start up, connectionId = 1733035249614_192.168.244.1_63824
-14:40:50:344  INFO 24012 --- [com.alibaba.nacos.client.remote.worker] com.alibaba.nacos.common.remote.client   : [9029145a-0373-4b30-a068-a965cf1a4a97] Notify connected event to listeners.
-14:40:50:345  INFO 24012 --- [main] com.alibaba.nacos.common.remote.client   : [9029145a-0373-4b30-a068-a965cf1a4a97] Register server push request handler:com.alibaba.nacos.common.remote.client.RpcClient$ConnectResetRequestHandler
-14:40:50:346  INFO 24012 --- [main] com.alibaba.nacos.common.remote.client   : [9029145a-0373-4b30-a068-a965cf1a4a97] Register server push request handler:com.alibaba.nacos.common.remote.client.RpcClient$$Lambda$978/0x000000080069a840
-14:40:50:403  INFO 24012 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8086 (http) with context path ''
-14:40:50:415  INFO 24012 --- [main] c.a.c.n.registry.NacosServiceRegistry    : nacos registry, DEFAULT_GROUP pay-service 192.168.229.1:8086 register finished
-14:40:50:908  INFO 24012 --- [nacos-grpc-client-executor-9] com.alibaba.nacos.common.remote.client   : [9029145a-0373-4b30-a068-a965cf1a4a97] Receive server push request, request = NotifySubscriberRequest, requestId = 31
-14:40:50:919  INFO 24012 --- [nacos-grpc-client-executor-9] com.alibaba.nacos.common.remote.client   : [9029145a-0373-4b30-a068-a965cf1a4a97] Ack server push request, request = NotifySubscriberRequest, requestId = 31
-14:40:51:622  INFO 24012 --- [main] o.s.cloud.commons.util.InetUtils         : Cannot determine local hostname
-14:40:51:623  INFO 24012 --- [main] d.s.w.p.DocumentationPluginsBootstrapper : Documentation plugins bootstrapped
-14:40:51:625  INFO 24012 --- [main] d.s.w.p.DocumentationPluginsBootstrapper : Found 1 custom documentation plugin(s)
-14:40:51:650  INFO 24012 --- [main] s.d.s.w.s.ApiListingReferenceScanner     : Scanning for api listing references
-14:40:51:742  INFO 24012 --- [main] com.hmall.pay.PayApplication             : Started PayApplication in 11.184 seconds (JVM running for 12.412)
-14:42:24:623  INFO 24012 --- [http-nio-8086-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
-14:42:24:623  INFO 24012 --- [http-nio-8086-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
-14:42:24:624  INFO 24012 --- [http-nio-8086-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
-14:42:24:710  INFO 24012 --- [http-nio-8086-exec-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-14:42:24:906  INFO 24012 --- [http-nio-8086-exec-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-14:42:24:912 DEBUG 24012 --- [http-nio-8086-exec-1] c.h.pay.mapper.PayOrderMapper.selectOne  : ==>  Preparing: SELECT id,biz_order_no,pay_order_no,biz_user_id,pay_channel_code,amount,pay_type,status,expand_json,result_code,result_msg,pay_success_time,pay_over_time,qr_code_url,create_time,update_time,creater,updater,is_delete FROM pay_order WHERE (biz_order_no = ?)
-14:42:24:928 DEBUG 24012 --- [http-nio-8086-exec-1] c.h.pay.mapper.PayOrderMapper.selectOne  : ==> Parameters: 1863111384557424642(Long)
-14:42:24:944 DEBUG 24012 --- [http-nio-8086-exec-1] c.h.pay.mapper.PayOrderMapper.selectOne  : <==      Total: 0
-14:42:24:981 DEBUG 24012 --- [http-nio-8086-exec-1] c.h.pay.mapper.PayOrderMapper.insert     : ==>  Preparing: INSERT INTO pay_order ( id, biz_order_no, pay_order_no, biz_user_id, pay_channel_code, amount, pay_type, status, pay_over_time ) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ? )
-14:42:24:983 DEBUG 24012 --- [http-nio-8086-exec-1] c.h.pay.mapper.PayOrderMapper.insert     : ==> Parameters: 1863111390039486467(Long), 1863111384557424642(Long), 1863111390039486466(Long), 2(Long), balance(String), 379500(Integer), 5(Integer), 1(Integer), 2024-12-01T16:42:24.977267400(LocalDateTime)
-14:42:24:988 DEBUG 24012 --- [http-nio-8086-exec-1] c.h.pay.mapper.PayOrderMapper.insert     : <==    Updates: 1
-15:36:25:762 DEBUG 24012 --- [http-nio-8086-exec-3] c.h.pay.mapper.PayOrderMapper.selectOne  : ==>  Preparing: SELECT id,biz_order_no,pay_order_no,biz_user_id,pay_channel_code,amount,pay_type,status,expand_json,result_code,result_msg,pay_success_time,pay_over_time,qr_code_url,create_time,update_time,creater,updater,is_delete FROM pay_order WHERE (biz_order_no = ?)
-15:36:25:765 DEBUG 24012 --- [http-nio-8086-exec-3] c.h.pay.mapper.PayOrderMapper.selectOne  : ==> Parameters: 1863111384557424642(Long)
-15:36:25:780 DEBUG 24012 --- [http-nio-8086-exec-3] c.h.pay.mapper.PayOrderMapper.selectOne  : <==      Total: 1
-15:36:29:766 DEBUG 24012 --- [http-nio-8086-exec-5] c.h.pay.mapper.PayOrderMapper.selectOne  : ==>  Preparing: SELECT id,biz_order_no,pay_order_no,biz_user_id,pay_channel_code,amount,pay_type,status,expand_json,result_code,result_msg,pay_success_time,pay_over_time,qr_code_url,create_time,update_time,creater,updater,is_delete FROM pay_order WHERE (biz_order_no = ?)
-15:36:29:767 DEBUG 24012 --- [http-nio-8086-exec-5] c.h.pay.mapper.PayOrderMapper.selectOne  : ==> Parameters: 1863111384557424642(Long)
-15:36:29:769 DEBUG 24012 --- [http-nio-8086-exec-5] c.h.pay.mapper.PayOrderMapper.selectOne  : <==      Total: 1
-15:59:03:317 DEBUG 24012 --- [http-nio-8086-exec-6] c.h.pay.mapper.PayOrderMapper.selectOne  : ==>  Preparing: SELECT id,biz_order_no,pay_order_no,biz_user_id,pay_channel_code,amount,pay_type,status,expand_json,result_code,result_msg,pay_success_time,pay_over_time,qr_code_url,create_time,update_time,creater,updater,is_delete FROM pay_order WHERE (biz_order_no = ?)
-15:59:03:317 DEBUG 24012 --- [http-nio-8086-exec-6] c.h.pay.mapper.PayOrderMapper.selectOne  : ==> Parameters: 1863130673951805442(Long)
-15:59:03:333 DEBUG 24012 --- [http-nio-8086-exec-6] c.h.pay.mapper.PayOrderMapper.selectOne  : <==      Total: 0
-15:59:03:342 DEBUG 24012 --- [http-nio-8086-exec-6] c.h.pay.mapper.PayOrderMapper.insert     : ==>  Preparing: INSERT INTO pay_order ( id, biz_order_no, pay_order_no, biz_user_id, pay_channel_code, amount, pay_type, status, pay_over_time ) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ? )
-15:59:03:344 DEBUG 24012 --- [http-nio-8086-exec-6] c.h.pay.mapper.PayOrderMapper.insert     : ==> Parameters: 1863130676925673475(Long), 1863130673951805442(Long), 1863130676925673474(Long), 1(Long), balance(String), 438300(Integer), 5(Integer), 1(Integer), 2024-12-01T17:59:03.338690900(LocalDateTime)
-15:59:03:358 DEBUG 24012 --- [http-nio-8086-exec-6] c.h.pay.mapper.PayOrderMapper.insert     : <==    Updates: 1
-15:59:08:871 DEBUG 24012 --- [http-nio-8086-exec-7] c.h.pay.mapper.PayOrderMapper.selectOne  : ==>  Preparing: SELECT id,biz_order_no,pay_order_no,biz_user_id,pay_channel_code,amount,pay_type,status,expand_json,result_code,result_msg,pay_success_time,pay_over_time,qr_code_url,create_time,update_time,creater,updater,is_delete FROM pay_order WHERE (biz_order_no = ?)
-15:59:08:872 DEBUG 24012 --- [http-nio-8086-exec-7] c.h.pay.mapper.PayOrderMapper.selectOne  : ==> Parameters: 1863130673951805442(Long)
-15:59:08:874 DEBUG 24012 --- [http-nio-8086-exec-7] c.h.pay.mapper.PayOrderMapper.selectOne  : <==      Total: 1
-16:45:39:999  WARN 24012 --- [Thread-7] c.a.n.common.http.HttpClientBeanHolder   : [HttpClientBeanHolder] Start destroying common HttpClient
-16:45:39:999  WARN 24012 --- [Thread-4] c.a.nacos.common.notify.NotifyCenter     : [NotifyCenter] Start destroying Publisher
-16:45:40:000  WARN 24012 --- [Thread-4] c.a.nacos.common.notify.NotifyCenter     : [NotifyCenter] Destruction of the end
-16:45:40:004  WARN 24012 --- [Thread-7] c.a.n.common.http.HttpClientBeanHolder   : [HttpClientBeanHolder] Destruction of the end
-16:45:40:249  INFO 24012 --- [SpringApplicationShutdownHook] c.a.c.n.registry.NacosServiceRegistry    : De-registering from Nacos Server now...
-16:45:40:253  INFO 24012 --- [SpringApplicationShutdownHook] c.a.c.n.registry.NacosServiceRegistry    : De-registration finished.
-16:45:40:583  INFO 24012 --- [SpringApplicationShutdownHook] com.alibaba.nacos.common.remote.client   : Shutdown rpc client, set status to shutdown
-16:45:40:583  INFO 24012 --- [SpringApplicationShutdownHook] com.alibaba.nacos.common.remote.client   : Shutdown client event executor java.util.concurrent.ScheduledThreadPoolExecutor@1c23519a[Running, pool size = 2, active threads = 2, queued tasks = 0, completed tasks = 0]
-16:45:40:583  INFO 24012 --- [SpringApplicationShutdownHook] com.alibaba.nacos.common.remote.client   : Close current connection 1733035249614_192.168.244.1_63824
-16:45:40:585  INFO 24012 --- [nacos-grpc-client-executor-1598] c.a.n.c.remote.client.grpc.GrpcClient    : [1733035249614_192.168.244.1_63824]Ignore complete event,isRunning:false,isAbandon=false
-16:45:40:592  INFO 24012 --- [SpringApplicationShutdownHook] c.a.n.c.remote.client.grpc.GrpcClient    : Shutdown grpc executor java.util.concurrent.ThreadPoolExecutor@469424bb[Running, pool size = 5, active threads = 0, queued tasks = 0, completed tasks = 1599]
-16:45:40:599  INFO 24012 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
-16:45:40:610  INFO 24012 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+14:36:59:034  INFO 6664 --- [main] com.hmall.pay.PayApplication             : Starting PayApplication using Java 11.0.23 on 130com with PID 6664 (D:\workspace\stuspace\javaProject\hm-mall\hmall\pay-service\target\classes started by xi in D:\workspace\stuspace\javaProject\hm-mall\hmall)
+14:36:59:057 DEBUG 6664 --- [main] com.hmall.pay.PayApplication             : Running with Spring Boot v2.7.12, Spring v5.3.27
+14:36:59:058  INFO 6664 --- [main] com.hmall.pay.PayApplication             : The following 1 profile is active: "local"
+14:37:00:890  INFO 6664 --- [main] o.s.cloud.context.scope.GenericScope     : BeanFactory id=01d8b01a-9dca-395a-8a21-45a8fef661c6
+14:37:01:264  INFO 6664 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8086 (http)
+14:37:01:275  INFO 6664 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+14:37:01:275  INFO 6664 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.75]
+14:37:01:441  INFO 6664 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+14:37:01:442  INFO 6664 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2322 ms
+14:37:01:697  INFO 6664 --- [main] o.s.c.openfeign.FeignClientFactoryBean   : For 'user-service' URL not provided. Will try picking an instance via load-balancing.
+14:37:01:774  INFO 6664 --- [main] o.s.c.openfeign.FeignClientFactoryBean   : For 'trade-service' URL not provided. Will try picking an instance via load-balancing.
+14:37:03:971  INFO 6664 --- [main] pertySourcedRequestMappingHandlerMapping : Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2ControllerWebMvc#getDocumentation(String, HttpServletRequest)]
+14:37:04:582  INFO 6664 --- [main] com.alibaba.nacos.common.remote.client   : [RpcClientFactory] create a new rpc client of 994463c8-9d8d-471b-a773-0da4cffc512f
+14:37:04:649  INFO 6664 --- [main] org.reflections.Reflections              : Reflections took 37 ms to scan 1 urls, producing 3 keys and 6 values 
+14:37:04:682  INFO 6664 --- [main] org.reflections.Reflections              : Reflections took 13 ms to scan 1 urls, producing 4 keys and 9 values 
+14:37:04:696  INFO 6664 --- [main] org.reflections.Reflections              : Reflections took 11 ms to scan 1 urls, producing 3 keys and 10 values 
+14:37:04:698  WARN 6664 --- [main] org.reflections.Reflections              : given scan urls are empty. set urls in the configuration
+14:37:04:708  INFO 6664 --- [main] org.reflections.Reflections              : Reflections took 9 ms to scan 1 urls, producing 1 keys and 5 values 
+14:37:04:721  INFO 6664 --- [main] org.reflections.Reflections              : Reflections took 9 ms to scan 1 urls, producing 1 keys and 7 values 
+14:37:04:732  INFO 6664 --- [main] org.reflections.Reflections              : Reflections took 8 ms to scan 1 urls, producing 2 keys and 8 values 
+14:37:04:734  WARN 6664 --- [main] org.reflections.Reflections              : given scan urls are empty. set urls in the configuration
+14:37:04:735  INFO 6664 --- [main] com.alibaba.nacos.common.remote.client   : [994463c8-9d8d-471b-a773-0da4cffc512f] RpcClient init label, labels = {module=naming, source=sdk}
+14:37:04:737  INFO 6664 --- [main] com.alibaba.nacos.common.remote.client   : [994463c8-9d8d-471b-a773-0da4cffc512f] RpcClient init, ServerListFactory = com.alibaba.nacos.client.naming.core.ServerListManager
+14:37:04:737  INFO 6664 --- [main] com.alibaba.nacos.common.remote.client   : [994463c8-9d8d-471b-a773-0da4cffc512f] Registry connection listener to current client:com.alibaba.nacos.client.naming.remote.gprc.redo.NamingGrpcRedoService
+14:37:04:738  INFO 6664 --- [main] com.alibaba.nacos.common.remote.client   : [994463c8-9d8d-471b-a773-0da4cffc512f] Register server push request handler:com.alibaba.nacos.client.naming.remote.gprc.NamingPushRequestHandler
+14:37:04:739  INFO 6664 --- [main] com.alibaba.nacos.common.remote.client   : [994463c8-9d8d-471b-a773-0da4cffc512f] Try to connect to server on start up, server: {serverIp = '192.168.244.130', server main port = 8848}
+14:37:06:278  INFO 6664 --- [main] com.alibaba.nacos.common.remote.client   : [994463c8-9d8d-471b-a773-0da4cffc512f] Success to connect to server [192.168.244.130:8848] on start up, connectionId = 1733467025488_192.168.244.1_63308
+14:37:06:279  INFO 6664 --- [com.alibaba.nacos.client.remote.worker] com.alibaba.nacos.common.remote.client   : [994463c8-9d8d-471b-a773-0da4cffc512f] Notify connected event to listeners.
+14:37:06:280  INFO 6664 --- [main] com.alibaba.nacos.common.remote.client   : [994463c8-9d8d-471b-a773-0da4cffc512f] Register server push request handler:com.alibaba.nacos.common.remote.client.RpcClient$ConnectResetRequestHandler
+14:37:06:280  INFO 6664 --- [main] com.alibaba.nacos.common.remote.client   : [994463c8-9d8d-471b-a773-0da4cffc512f] Register server push request handler:com.alibaba.nacos.common.remote.client.RpcClient$$Lambda$978/0x000000080069a040
+14:37:06:389  INFO 6664 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8086 (http) with context path ''
+14:37:06:415  INFO 6664 --- [main] c.a.c.n.registry.NacosServiceRegistry    : nacos registry, DEFAULT_GROUP pay-service 192.168.229.1:8086 register finished
+14:37:06:763  INFO 6664 --- [main] d.s.w.p.DocumentationPluginsBootstrapper : Documentation plugins bootstrapped
+14:37:06:767  INFO 6664 --- [main] d.s.w.p.DocumentationPluginsBootstrapper : Found 1 custom documentation plugin(s)
+14:37:06:795  INFO 6664 --- [main] s.d.s.w.s.ApiListingReferenceScanner     : Scanning for api listing references
+14:37:06:834  INFO 6664 --- [nacos-grpc-client-executor-9] com.alibaba.nacos.common.remote.client   : [994463c8-9d8d-471b-a773-0da4cffc512f] Receive server push request, request = NotifySubscriberRequest, requestId = 4
+14:37:06:846  INFO 6664 --- [nacos-grpc-client-executor-9] com.alibaba.nacos.common.remote.client   : [994463c8-9d8d-471b-a773-0da4cffc512f] Ack server push request, request = NotifySubscriberRequest, requestId = 4
+14:37:06:901  INFO 6664 --- [main] com.hmall.pay.PayApplication             : Started PayApplication in 9.046 seconds (JVM running for 10.294)
+16:09:06:983  WARN 6664 --- [Thread-7] c.a.n.common.http.HttpClientBeanHolder   : [HttpClientBeanHolder] Start destroying common HttpClient
+16:09:06:983  WARN 6664 --- [Thread-4] c.a.nacos.common.notify.NotifyCenter     : [NotifyCenter] Start destroying Publisher
+16:09:06:998  WARN 6664 --- [Thread-4] c.a.nacos.common.notify.NotifyCenter     : [NotifyCenter] Destruction of the end
+16:09:07:005  WARN 6664 --- [Thread-7] c.a.n.common.http.HttpClientBeanHolder   : [HttpClientBeanHolder] Destruction of the end
+16:09:07:412  INFO 6664 --- [SpringApplicationShutdownHook] c.a.c.n.registry.NacosServiceRegistry    : De-registering from Nacos Server now...
+16:09:07:419  INFO 6664 --- [SpringApplicationShutdownHook] c.a.c.n.registry.NacosServiceRegistry    : De-registration finished.
+16:09:07:748  INFO 6664 --- [SpringApplicationShutdownHook] com.alibaba.nacos.common.remote.client   : Shutdown rpc client, set status to shutdown
+16:09:07:748  INFO 6664 --- [SpringApplicationShutdownHook] com.alibaba.nacos.common.remote.client   : Shutdown client event executor java.util.concurrent.ScheduledThreadPoolExecutor@1250cda0[Running, pool size = 2, active threads = 2, queued tasks = 0, completed tasks = 0]
+16:09:07:749  INFO 6664 --- [SpringApplicationShutdownHook] com.alibaba.nacos.common.remote.client   : Close current connection 1733467025488_192.168.244.1_63308
+16:09:07:754  INFO 6664 --- [nacos-grpc-client-executor-1203] c.a.n.c.remote.client.grpc.GrpcClient    : [1733467025488_192.168.244.1_63308]Ignore complete event,isRunning:false,isAbandon=false
+16:09:07:759  INFO 6664 --- [SpringApplicationShutdownHook] c.a.n.c.remote.client.grpc.GrpcClient    : Shutdown grpc executor java.util.concurrent.ThreadPoolExecutor@61ca7b21[Running, pool size = 5, active threads = 0, queued tasks = 0, completed tasks = 1204]
+16:09:14:910  INFO 20668 --- [main] com.hmall.pay.PayApplication             : Starting PayApplication using Java 11.0.23 on 130com with PID 20668 (D:\workspace\stuspace\javaProject\hm-mall\hmall\pay-service\target\classes started by xi in D:\workspace\stuspace\javaProject\hm-mall\hmall)
+16:09:14:911 DEBUG 20668 --- [main] com.hmall.pay.PayApplication             : Running with Spring Boot v2.7.12, Spring v5.3.27
+16:09:14:911  INFO 20668 --- [main] com.hmall.pay.PayApplication             : The following 1 profile is active: "local"
+16:09:16:559  INFO 20668 --- [main] o.s.cloud.context.scope.GenericScope     : BeanFactory id=01d8b01a-9dca-395a-8a21-45a8fef661c6
+16:09:17:255  INFO 20668 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8086 (http)
+16:09:17:270  INFO 20668 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+16:09:17:272  INFO 20668 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.75]
+16:09:17:453  INFO 20668 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+16:09:17:454  INFO 20668 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2454 ms
+16:09:17:818  INFO 20668 --- [main] o.s.c.openfeign.FeignClientFactoryBean   : For 'user-service' URL not provided. Will try picking an instance via load-balancing.
+16:09:17:903  INFO 20668 --- [main] o.s.c.openfeign.FeignClientFactoryBean   : For 'trade-service' URL not provided. Will try picking an instance via load-balancing.
+16:09:21:083  INFO 20668 --- [main] pertySourcedRequestMappingHandlerMapping : Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2ControllerWebMvc#getDocumentation(String, HttpServletRequest)]
+16:09:22:012  INFO 20668 --- [main] com.alibaba.nacos.common.remote.client   : [RpcClientFactory] create a new rpc client of 4a7b08f6-2936-4ad9-a169-cdb197b60f2c
+16:09:22:079  INFO 20668 --- [main] org.reflections.Reflections              : Reflections took 34 ms to scan 1 urls, producing 3 keys and 6 values 
+16:09:22:123  INFO 20668 --- [main] org.reflections.Reflections              : Reflections took 16 ms to scan 1 urls, producing 4 keys and 9 values 
+16:09:22:139  INFO 20668 --- [main] org.reflections.Reflections              : Reflections took 12 ms to scan 1 urls, producing 3 keys and 10 values 
+16:09:22:142  WARN 20668 --- [main] org.reflections.Reflections              : given scan urls are empty. set urls in the configuration
+16:09:22:158  INFO 20668 --- [main] org.reflections.Reflections              : Reflections took 14 ms to scan 1 urls, producing 1 keys and 5 values 
+16:09:22:176  INFO 20668 --- [main] org.reflections.Reflections              : Reflections took 15 ms to scan 1 urls, producing 1 keys and 7 values 
+16:09:22:193  INFO 20668 --- [main] org.reflections.Reflections              : Reflections took 13 ms to scan 1 urls, producing 2 keys and 8 values 
+16:09:22:198  WARN 20668 --- [main] org.reflections.Reflections              : given scan urls are empty. set urls in the configuration
+16:09:22:199  INFO 20668 --- [main] com.alibaba.nacos.common.remote.client   : [4a7b08f6-2936-4ad9-a169-cdb197b60f2c] RpcClient init label, labels = {module=naming, source=sdk}
+16:09:22:203  INFO 20668 --- [main] com.alibaba.nacos.common.remote.client   : [4a7b08f6-2936-4ad9-a169-cdb197b60f2c] RpcClient init, ServerListFactory = com.alibaba.nacos.client.naming.core.ServerListManager
+16:09:22:204  INFO 20668 --- [main] com.alibaba.nacos.common.remote.client   : [4a7b08f6-2936-4ad9-a169-cdb197b60f2c] Registry connection listener to current client:com.alibaba.nacos.client.naming.remote.gprc.redo.NamingGrpcRedoService
+16:09:22:205  INFO 20668 --- [main] com.alibaba.nacos.common.remote.client   : [4a7b08f6-2936-4ad9-a169-cdb197b60f2c] Register server push request handler:com.alibaba.nacos.client.naming.remote.gprc.NamingPushRequestHandler
+16:09:22:208  INFO 20668 --- [main] com.alibaba.nacos.common.remote.client   : [4a7b08f6-2936-4ad9-a169-cdb197b60f2c] Try to connect to server on start up, server: {serverIp = '192.168.244.130', server main port = 8848}
+16:09:24:772  INFO 20668 --- [main] com.alibaba.nacos.common.remote.client   : [4a7b08f6-2936-4ad9-a169-cdb197b60f2c] Success to connect to server [192.168.244.130:8848] on start up, connectionId = 1733472563846_192.168.244.1_60081
+16:09:24:773  INFO 20668 --- [com.alibaba.nacos.client.remote.worker] com.alibaba.nacos.common.remote.client   : [4a7b08f6-2936-4ad9-a169-cdb197b60f2c] Notify connected event to listeners.
+16:09:24:774  INFO 20668 --- [main] com.alibaba.nacos.common.remote.client   : [4a7b08f6-2936-4ad9-a169-cdb197b60f2c] Register server push request handler:com.alibaba.nacos.common.remote.client.RpcClient$ConnectResetRequestHandler
+16:09:24:774  INFO 20668 --- [main] com.alibaba.nacos.common.remote.client   : [4a7b08f6-2936-4ad9-a169-cdb197b60f2c] Register server push request handler:com.alibaba.nacos.common.remote.client.RpcClient$$Lambda$978/0x00000008006a2040
+16:09:24:867  INFO 20668 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8086 (http) with context path ''
+16:09:24:886  INFO 20668 --- [main] c.a.c.n.registry.NacosServiceRegistry    : nacos registry, DEFAULT_GROUP pay-service 192.168.229.1:8086 register finished
+16:09:25:412  INFO 20668 --- [nacos-grpc-client-executor-8] com.alibaba.nacos.common.remote.client   : [4a7b08f6-2936-4ad9-a169-cdb197b60f2c] Receive server push request, request = NotifySubscriberRequest, requestId = 39
+16:09:25:429  INFO 20668 --- [nacos-grpc-client-executor-8] com.alibaba.nacos.common.remote.client   : [4a7b08f6-2936-4ad9-a169-cdb197b60f2c] Ack server push request, request = NotifySubscriberRequest, requestId = 39
+16:09:25:507  INFO 20668 --- [main] d.s.w.p.DocumentationPluginsBootstrapper : Documentation plugins bootstrapped
+16:09:25:512  INFO 20668 --- [main] d.s.w.p.DocumentationPluginsBootstrapper : Found 1 custom documentation plugin(s)
+16:09:25:557  INFO 20668 --- [main] s.d.s.w.s.ApiListingReferenceScanner     : Scanning for api listing references
+16:09:25:714  INFO 20668 --- [main] com.hmall.pay.PayApplication             : Started PayApplication in 11.927 seconds (JVM running for 13.199)
+16:16:52:689  WARN 20668 --- [Thread-4] c.a.nacos.common.notify.NotifyCenter     : [NotifyCenter] Start destroying Publisher
+16:16:52:689  WARN 20668 --- [Thread-7] c.a.n.common.http.HttpClientBeanHolder   : [HttpClientBeanHolder] Start destroying common HttpClient
+16:16:52:689  WARN 20668 --- [Thread-4] c.a.nacos.common.notify.NotifyCenter     : [NotifyCenter] Destruction of the end
+16:16:52:690  WARN 20668 --- [Thread-7] c.a.n.common.http.HttpClientBeanHolder   : [HttpClientBeanHolder] Destruction of the end
+16:16:53:034  INFO 20668 --- [SpringApplicationShutdownHook] c.a.c.n.registry.NacosServiceRegistry    : De-registering from Nacos Server now...
+16:16:53:040  INFO 20668 --- [SpringApplicationShutdownHook] c.a.c.n.registry.NacosServiceRegistry    : De-registration finished.
+16:16:53:370  INFO 20668 --- [SpringApplicationShutdownHook] com.alibaba.nacos.common.remote.client   : Shutdown rpc client, set status to shutdown
+16:16:53:370  INFO 20668 --- [SpringApplicationShutdownHook] com.alibaba.nacos.common.remote.client   : Shutdown client event executor java.util.concurrent.ScheduledThreadPoolExecutor@29759cde[Running, pool size = 2, active threads = 2, queued tasks = 0, completed tasks = 0]
+16:16:53:370  INFO 20668 --- [SpringApplicationShutdownHook] com.alibaba.nacos.common.remote.client   : Close current connection 1733472563846_192.168.244.1_60081
+16:16:53:371  INFO 20668 --- [nacos-grpc-client-executor-120] c.a.n.c.remote.client.grpc.GrpcClient    : [1733472563846_192.168.244.1_60081]Ignore complete event,isRunning:false,isAbandon=false
+16:16:53:375  INFO 20668 --- [SpringApplicationShutdownHook] c.a.n.c.remote.client.grpc.GrpcClient    : Shutdown grpc executor java.util.concurrent.ThreadPoolExecutor@58f99844[Running, pool size = 4, active threads = 0, queued tasks = 0, completed tasks = 121]
+16:17:29:339  INFO 26360 --- [main] com.hmall.pay.PayApplication             : Starting PayApplication using Java 11.0.23 on 130com with PID 26360 (D:\workspace\stuspace\javaProject\hm-mall\hmall\pay-service\target\classes started by xi in D:\workspace\stuspace\javaProject\hm-mall\hmall)
+16:17:29:341 DEBUG 26360 --- [main] com.hmall.pay.PayApplication             : Running with Spring Boot v2.7.12, Spring v5.3.27
+16:17:29:342  INFO 26360 --- [main] com.hmall.pay.PayApplication             : The following 1 profile is active: "local"
+16:17:31:067  INFO 26360 --- [main] o.s.cloud.context.scope.GenericScope     : BeanFactory id=01d8b01a-9dca-395a-8a21-45a8fef661c6
+16:17:31:638  INFO 26360 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8086 (http)
+16:17:31:655  INFO 26360 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+16:17:31:655  INFO 26360 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.75]
+16:17:31:897  INFO 26360 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+16:17:31:897  INFO 26360 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2490 ms
+16:17:32:298  INFO 26360 --- [main] o.s.c.openfeign.FeignClientFactoryBean   : For 'user-service' URL not provided. Will try picking an instance via load-balancing.
+16:17:32:371  INFO 26360 --- [main] o.s.c.openfeign.FeignClientFactoryBean   : For 'trade-service' URL not provided. Will try picking an instance via load-balancing.
+16:17:35:525  INFO 26360 --- [main] pertySourcedRequestMappingHandlerMapping : Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2ControllerWebMvc#getDocumentation(String, HttpServletRequest)]
+16:17:36:327  INFO 26360 --- [main] com.alibaba.nacos.common.remote.client   : [RpcClientFactory] create a new rpc client of 1f13f54c-a40f-4fb6-899a-f1e484312fd2
+16:17:36:406  INFO 26360 --- [main] org.reflections.Reflections              : Reflections took 46 ms to scan 1 urls, producing 3 keys and 6 values 
+16:17:36:453  INFO 26360 --- [main] org.reflections.Reflections              : Reflections took 19 ms to scan 1 urls, producing 4 keys and 9 values 
+16:17:36:472  INFO 26360 --- [main] org.reflections.Reflections              : Reflections took 14 ms to scan 1 urls, producing 3 keys and 10 values 
+16:17:36:477  WARN 26360 --- [main] org.reflections.Reflections              : given scan urls are empty. set urls in the configuration
+16:17:36:492  INFO 26360 --- [main] org.reflections.Reflections              : Reflections took 14 ms to scan 1 urls, producing 1 keys and 5 values 
+16:17:36:513  INFO 26360 --- [main] org.reflections.Reflections              : Reflections took 16 ms to scan 1 urls, producing 1 keys and 7 values 
+16:17:36:530  INFO 26360 --- [main] org.reflections.Reflections              : Reflections took 12 ms to scan 1 urls, producing 2 keys and 8 values 
+16:17:36:534  WARN 26360 --- [main] org.reflections.Reflections              : given scan urls are empty. set urls in the configuration
+16:17:36:535  INFO 26360 --- [main] com.alibaba.nacos.common.remote.client   : [1f13f54c-a40f-4fb6-899a-f1e484312fd2] RpcClient init label, labels = {module=naming, source=sdk}
+16:17:36:539  INFO 26360 --- [main] com.alibaba.nacos.common.remote.client   : [1f13f54c-a40f-4fb6-899a-f1e484312fd2] RpcClient init, ServerListFactory = com.alibaba.nacos.client.naming.core.ServerListManager
+16:17:36:539  INFO 26360 --- [main] com.alibaba.nacos.common.remote.client   : [1f13f54c-a40f-4fb6-899a-f1e484312fd2] Registry connection listener to current client:com.alibaba.nacos.client.naming.remote.gprc.redo.NamingGrpcRedoService
+16:17:36:540  INFO 26360 --- [main] com.alibaba.nacos.common.remote.client   : [1f13f54c-a40f-4fb6-899a-f1e484312fd2] Register server push request handler:com.alibaba.nacos.client.naming.remote.gprc.NamingPushRequestHandler
+16:17:36:543  INFO 26360 --- [main] com.alibaba.nacos.common.remote.client   : [1f13f54c-a40f-4fb6-899a-f1e484312fd2] Try to connect to server on start up, server: {serverIp = '192.168.244.130', server main port = 8848}
+16:17:38:012  INFO 26360 --- [main] com.alibaba.nacos.common.remote.client   : [1f13f54c-a40f-4fb6-899a-f1e484312fd2] Success to connect to server [192.168.244.130:8848] on start up, connectionId = 1733473057122_192.168.244.1_61699
+16:17:38:013  INFO 26360 --- [com.alibaba.nacos.client.remote.worker] com.alibaba.nacos.common.remote.client   : [1f13f54c-a40f-4fb6-899a-f1e484312fd2] Notify connected event to listeners.
+16:17:38:014  INFO 26360 --- [main] com.alibaba.nacos.common.remote.client   : [1f13f54c-a40f-4fb6-899a-f1e484312fd2] Register server push request handler:com.alibaba.nacos.common.remote.client.RpcClient$ConnectResetRequestHandler
+16:17:38:014  INFO 26360 --- [main] com.alibaba.nacos.common.remote.client   : [1f13f54c-a40f-4fb6-899a-f1e484312fd2] Register server push request handler:com.alibaba.nacos.common.remote.client.RpcClient$$Lambda$978/0x00000008006a3840
+16:17:38:082  INFO 26360 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8086 (http) with context path ''
+16:17:38:093  INFO 26360 --- [main] c.a.c.n.registry.NacosServiceRegistry    : nacos registry, DEFAULT_GROUP pay-service 192.168.229.1:8086 register finished
+16:17:38:333  INFO 26360 --- [main] d.s.w.p.DocumentationPluginsBootstrapper : Documentation plugins bootstrapped
+16:17:38:336  INFO 26360 --- [main] d.s.w.p.DocumentationPluginsBootstrapper : Found 1 custom documentation plugin(s)
+16:17:38:358  INFO 26360 --- [main] s.d.s.w.s.ApiListingReferenceScanner     : Scanning for api listing references
+16:17:38:514  INFO 26360 --- [main] com.hmall.pay.PayApplication             : Started PayApplication in 10.303 seconds (JVM running for 11.691)
+16:17:38:572  INFO 26360 --- [nacos-grpc-client-executor-10] com.alibaba.nacos.common.remote.client   : [1f13f54c-a40f-4fb6-899a-f1e484312fd2] Receive server push request, request = NotifySubscriberRequest, requestId = 51
+16:17:38:582  INFO 26360 --- [nacos-grpc-client-executor-10] com.alibaba.nacos.common.remote.client   : [1f13f54c-a40f-4fb6-899a-f1e484312fd2] Ack server push request, request = NotifySubscriberRequest, requestId = 51
+16:21:50:559  WARN 26360 --- [Thread-4] c.a.nacos.common.notify.NotifyCenter     : [NotifyCenter] Start destroying Publisher
+16:21:50:559  WARN 26360 --- [Thread-7] c.a.n.common.http.HttpClientBeanHolder   : [HttpClientBeanHolder] Start destroying common HttpClient
+16:21:50:560  WARN 26360 --- [Thread-4] c.a.nacos.common.notify.NotifyCenter     : [NotifyCenter] Destruction of the end
+16:21:50:561  WARN 26360 --- [Thread-7] c.a.n.common.http.HttpClientBeanHolder   : [HttpClientBeanHolder] Destruction of the end
+16:21:50:967  INFO 26360 --- [SpringApplicationShutdownHook] c.a.c.n.registry.NacosServiceRegistry    : De-registering from Nacos Server now...
+16:21:50:980  INFO 26360 --- [SpringApplicationShutdownHook] c.a.c.n.registry.NacosServiceRegistry    : De-registration finished.
+16:21:51:301  INFO 26360 --- [SpringApplicationShutdownHook] com.alibaba.nacos.common.remote.client   : Shutdown rpc client, set status to shutdown
+16:21:51:301  INFO 26360 --- [SpringApplicationShutdownHook] com.alibaba.nacos.common.remote.client   : Shutdown client event executor java.util.concurrent.ScheduledThreadPoolExecutor@30657c3f[Running, pool size = 2, active threads = 2, queued tasks = 0, completed tasks = 0]
+16:21:51:301  INFO 26360 --- [SpringApplicationShutdownHook] com.alibaba.nacos.common.remote.client   : Close current connection 1733473057122_192.168.244.1_61699
+16:21:51:302  INFO 26360 --- [nacos-grpc-client-executor-76] c.a.n.c.remote.client.grpc.GrpcClient    : [1733473057122_192.168.244.1_61699]Ignore complete event,isRunning:false,isAbandon=false
+16:21:51:306  INFO 26360 --- [SpringApplicationShutdownHook] c.a.n.c.remote.client.grpc.GrpcClient    : Shutdown grpc executor java.util.concurrent.ThreadPoolExecutor@7cc5845f[Running, pool size = 4, active threads = 0, queued tasks = 0, completed tasks = 77]

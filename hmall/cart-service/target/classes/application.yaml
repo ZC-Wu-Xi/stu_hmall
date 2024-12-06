@@ -1,8 +1,16 @@
 server:
   port: 8082
+  tomcat:
+    threads:
+      max: 25 # 允许的最大线程数 默认最大8492 调小方便测试sentinel线程隔离
+    accept-count: 25 # 线程占满后最大排队等待数量
+    max-connections: 100 # 允许的最大连接
+
 feign: # openfeign 远程调用 默认http客户端为HttpURLConnection不支持连接池，效率较低
   okhttp: # okhttp http客户端，支持连接池，效率较高
     enabled: true # 开启 okhttp 连接池
+  sentinel:
+    enabled: true
 #======== nacos共享配置 ======================
 # nacos配置中心的配置文件 读取以下参数
 hm:
@@ -11,6 +19,13 @@ hm:
   swagger:
     title: "黑马商城购物车服务接口文档"
     package: "com.hmall.cart.controller"
+
+spring:
+  cloud:
+    sentinel: # sentinel 限流隔离熔断降级
+      transport:
+        dashboard: localhost:8090 # sentinel 控制台地址
+      http-method-specify: true # 开启请求方式前缀 无法区分同路径不同请求方式的请求，选择打开Sentinel的请求方式前缀，把`请求方式 + 请求路径`作为簇点资源名
 
 # 原始配置
 #spring:
