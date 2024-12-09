@@ -1,6 +1,5 @@
 server:
   port: 8085
-
 #======== nacos共享配置 ======================
 # nacos配置中心的配置文件 读取以下参数
 hm:
@@ -9,6 +8,15 @@ hm:
   swagger:
     title: "黑马商城交易服务接口文档"
     package: "com.hmall.trade.controller"
+
+#spring:
+#  # 在nacos配置中心配了
+#  rabbitmq: # rabbitmq配置
+#    host: 192.168.244.130 # 你的虚拟机IP
+#    port: 5672 # 端口 15672是控制台端口，不要连错了
+#    virtual-host: /hmall # 虚拟主机
+#    username: hmall # 用户名
+#    password: 123456 # 密码
 
 
 #spring:

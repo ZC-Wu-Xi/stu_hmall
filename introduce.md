@@ -42,11 +42,27 @@ docker run --name seata \
 --network hmall \
 -d \
 seataio/seata-server:1.5.2 # 启动seata
+
+docker rm -f mq
+
+docker run \
+ -e RABBITMQ_DEFAULT_USER=itheima \
+ -e RABBITMQ_DEFAULT_PASS=123456 \
+ -v mq-plugins:/plugins \
+ --name mq \
+ --hostname mq \
+ -p 15672:15672 \
+ -p 5672:5672 \
+ --network hmall\
+ -d \
+ rabbitmq:3.8-management # 启动mq
 ```
 
-http://192.168.244.130:8848/nacos
-
-http://192.168.244.130:7099/#/login admin
+- **nacos**：http://192.168.244.130:8848/nacos
+- **seata**：http://192.168.244.130:7099/#/login 
+  admin admin
+- **rabbitmq**：http://192.168.244.130:15672/ 
+  itheima 123456
 
 .jks 文件是 Java 密钥库（Java KeyStore）文件的扩展名。它用于存储密钥对和证书，这些密钥和证书通常用于 Java 应用程序的安全通信，例如 SSL/TLS 连接。以下是一些关于 .jks 文件的关键点：
 

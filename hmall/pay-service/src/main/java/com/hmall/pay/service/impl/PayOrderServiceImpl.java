@@ -3,7 +3,6 @@ package com.hmall.pay.service.impl;
 import com.baomidou.mybatisplus.core.toolkit.IdWorker;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.hmall.api.client.TradeClient;
 import com.hmall.api.client.UserClient;
 import com.hmall.common.exception.BizIllegalException;
 import com.hmall.common.utils.BeanUtils;
@@ -15,6 +14,8 @@ import com.hmall.pay.enums.PayStatus;
 import com.hmall.pay.mapper.PayOrderMapper;
 import com.hmall.pay.service.IPayOrderService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -29,12 +30,14 @@ import java.time.LocalDateTime;
  * @since 2023-05-16
  */
 @Service
+@Slf4j
 @RequiredArgsConstructor
 public class PayOrderServiceImpl extends ServiceImpl<PayOrderMapper, PayOrder> implements IPayOrderService {
 
     private final UserClient userClient;
 
-    private final TradeClient tradeClient;
+//    private final TradeClient tradeClient; // openFeign同步远程调用
+    private final RabbitTemplate rabbitTemplate; // rabbitMQ异步调用
 
     @Override
     public String applyPayOrder(PayApplyDTO applyDTO) {
@@ -61,8 +64,20 @@ public class PayOrderServiceImpl extends ServiceImpl<PayOrderMapper, PayOrder> i
         if (!success) {
             throw new BizIllegalException("交易已支付或关闭！");
         }
-        // 5.修改订单状态
-        tradeClient.markOrderPaySuccess(po.getBizOrderNo());
+
+        // 5.修改订单状态 使用rabbitMQ异步调用 发消息
+        // openFeign同步调用
+//        tradeClient.markOrderPaySuccess(po.getBizOrderNo());
+
+        // rabbitMQ异步调用 异步调用最好要对原业务没有影响，因此建议用try...catch块包裹
+        try {
+            // rabbitMQ异步调用 三个参数：交换机、key、传递的消息(这里传的订单id)
+            rabbitTemplate.convertAndSend("pay.direct", "pay.success", po.getBizOrderNo());
+        } catch (Exception e) {
+            // 发送失败，记录日志
+            log.error("发送支付状态通知失败，订单id：{}", po.getId(), e);
+            // 在rabbitMQ高级篇中有一些失败的兜底方案
+        }
     }
 
     public boolean markPayOrderSuccess(Long id, LocalDateTime successTime) {

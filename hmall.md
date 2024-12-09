@@ -4318,3 +4318,183 @@ public void tryPayOrderByBalance(PayOrderDTO payOrderDTO) {
 ```
 
 利用seata解决这里的分布式事务问题，并思考这个业务实现有没有什么值得改进的地方
+
+# 12. MQ异步通知调用
+
+[stu_RabbieMQ](../stu_RabbitMQ)
+
+## 12.1 改造下单功能
+
+![image-20241209173330271](./hmallImg/image-20241209173330271.png)
+
+
+
+![image-20241209172800368](./hmallImg/image-20241209172800368.png)
+
+改造下单功能，将基于OpenFeign的清理购物车同步调用，改为基于RabbitMQ的异步通知：
+
+- 定义topic类型交换机，命名为`trade.topic`
+- 定义消息队列，命名为`cart.clear.queue`
+- 将`cart.clear.queue`与`trade.topic`绑定，`BindingKey`为`order.create`
+- 下单成功时不再调用清理购物车接口，而是发送一条消息到`trade.topic`，发送消息的`RoutingKey`  为`order.create`，消息内容是下单的具体商品、当前登录用户信息
+- 购物车服务监听`cart.clear.queue`队列，接收到消息后清理指定用户的购物车中的指定商品
+
+### 12.1.2 MQ配置抽取到Nacos
+
+将MQ配置抽取到Nacos中管理，微服务中直接使用共享配置。
+
+nacos配置中心：
+
+`shared-rabbitMQ.yaml`:
+
+```yaml
+spring:
+  rabbitmq: # rabbitmq配置
+    host: 192.168.244.130 # 你的虚拟机IP
+    port: 5672 # 端口 15672是控制台端口，不要连错了
+    virtual-host: /hmall # 虚拟主机
+    username: hmall # 用户名
+    password: 123456 # 密码
+```
+
+在`trade-service`和`pay-service`的`bootstrap.yaml`中加入：
+```yaml
+spring:
+  cloud:
+    nacos: # nacos服务注册发现
+      server-addr: 192.168.244.130:8848
+      config:
+        file-extension: yaml # 文件后缀名
+        shared-configs: # 共享配置 拉取nacos配置中心的配置问文件到本地
+          - data-id: shared-rabbitMQ.yaml # 读取的配置文件名
+```
+
+### 12.1.2 改造公共模块
+
+**`hm-commom`公共微服务：**
+
+新建`config.MqConfig.java`  配置json消息转换器
+
+```java
+@Configuration
+@ConditionalOnClass(MessageConverter.class) // springMVC自动装配的条件注解，如果MessageConverter.class类存在该配置类就生效
+// MessageConverter是amqp即rabbitMQ遵循的协议
+public class MqConfig {
+    @Bean
+    public MessageConverter messageConverter() {
+        // 使用json消息转换器
+        // 默认情况下Spring采用的序列化方式是JDK序列化。众所周知，JDK序列化存在下列问题：
+        //  - 数据体积过大
+        //  - 有安全漏洞
+        //  - 可读性差
+        return new Jackson2JsonMessageConverter();
+    }
+}
+```
+
+`spring.factories`：springMVC的包扫描
+
+```factories
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  com.hmall.common.config.MyBatisConfig,\
+  com.hmall.common.config.MvcConfig,\
+  com.hmall.common.config.MqConfig,\
+  com.hmall.common.config.JsonConfig
+```
+
+`pom.xml`:非新增
+
+```xml
+<!--Spring整合Rabbit依赖-->
+<dependency>
+    <groupId>org.springframework.amqp</groupId>
+    <artifactId>spring-rabbit</artifactId>
+    <scope>provided</scope>
+</dependency>
+<!--json处理-->
+<dependency>
+    <groupId>com.fasterxml.jackson.dataformat</groupId>
+    <artifactId>jackson-dataformat-xml</artifactId>
+    <scope>provided</scope>
+</dependency>
+```
+
+### 12.1.3 支付微服务(消息发送者)
+
+**`pay-service`微服务模块**
+
+`pom.xml`
+
+```xml
+<!-- amqp AMQP依赖，包含RabbitMQ -->
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-amqp</artifactId>
+</dependency>
+```
+
+`serviceImpl`
+
+```java
+// 支付成功，发送异步通知去修改订单状态.........
+// 5.修改订单状态 使用rabbitMQ异步调用 发消息
+// openFeign同步调用
+//        tradeClient.markOrderPaySuccess(po.getBizOrderNo());
+
+// rabbitMQ异步调用 异步调用最好要对原业务没有影响，因此建议用try...catch块包裹
+try {
+    // rabbitMQ异步调用 三个参数：交换机、key、传递的消息(这里传的订单id)
+    rabbitTemplate.convertAndSend("pay.direct", "pay.success", po.getBizOrderNo());
+} catch (Exception e) {
+    // 发送失败，记录日志
+    log.error("发送支付状态通知失败，订单id：{}", po.getId(), e);
+    // 在rabbitMQ高级篇中有一些失败的兜底方案
+}
+```
+
+### 12.1.4 交易微服务(消息接收者)
+
+**`pay-service`微服务模块**
+
+`pom.xml`
+
+```xml
+<!-- amqp AMQP依赖，包含RabbitMQ -->
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-amqp</artifactId>
+</dependency>
+```
+
+新建`listener.PayStatusListener.java` 监听支付成功消息 标记订单已支付
+
+```java
+@Component
+@RequiredArgsConstructor
+public class PayStatusListener {
+    private final IOrderService orderService;
+    @RabbitListener(bindings = @QueueBinding(
+            value = @Queue("trade.pay.success.queue"),
+            exchange = @Exchange(name = "pay.direct"), // 省略的交换机的类型，默认就是direct
+            key = "pay.success"))
+    public void listenPaySuccess(Long orderId) {
+        System.err.println("收到了支付成功的消息:" + orderId + '\n' + "修改订单标记已支付");
+        orderService.markOrderPaySuccess(orderId);
+    }
+}
+```
+
+
+
+## 5.3.登录信息传递优化
+
+某些业务中，需要根据登录用户信息处理业务，而基于MQ的异步调用并不会传递登录用户信息。前面我们的做法比较麻烦，至少要做两件事：
+
+- 消息发送者在消息体中传递登录用户
+- 消费者获取消息体中的登录用户，处理业务
+
+这样做不仅麻烦，而且编程体验也不统一，毕竟我们之前都是使用UserContext来获取用户。
+
+大家思考一下：有没有更优雅的办法传输登录用户信息，让使用MQ的人无感知，依然采用UserContext来随时获取用户。
+
+参考资料：https://docs.spring.io/spring-amqp/docs/2.4.14/reference/html/#post-processing
