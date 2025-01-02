@@ -70,13 +70,13 @@ public class PayOrderServiceImpl extends ServiceImpl<PayOrderMapper, PayOrder> i
 //        tradeClient.markOrderPaySuccess(po.getBizOrderNo());
 
         // rabbitMQ异步调用 异步调用最好要对原业务没有影响，因此建议用try...catch块包裹
+
         try {
             // rabbitMQ异步调用 三个参数：交换机、key、传递的消息(这里传的订单id)
             rabbitTemplate.convertAndSend("pay.direct", "pay.success", po.getBizOrderNo());
         } catch (Exception e) {
             // 发送失败，记录日志
             log.error("发送支付状态通知失败，订单id：{}", po.getId(), e);
-            // 在rabbitMQ高级篇中有一些失败的兜底方案
         }
     }
 

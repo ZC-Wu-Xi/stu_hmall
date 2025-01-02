@@ -4319,11 +4319,11 @@ public void tryPayOrderByBalance(PayOrderDTO payOrderDTO) {
 
 利用seata解决这里的分布式事务问题，并思考这个业务实现有没有什么值得改进的地方
 
-# 12. MQ异步通知调用
+# 12. RabbitMQ
 
 [stu_RabbieMQ](../stu_RabbitMQ)
 
-## 12.1 改造下单功能
+## 12.1 改造下单功能(MQ异步发消息)
 
 ![image-20241209173330271](./hmallImg/image-20241209173330271.png)
 
@@ -4484,9 +4484,7 @@ public class PayStatusListener {
 }
 ```
 
-
-
-## 5.3.登录信息传递优化
+## 12.2 登录信息传递优化
 
 某些业务中，需要根据登录用户信息处理业务，而基于MQ的异步调用并不会传递登录用户信息。前面我们的做法比较麻烦，至少要做两件事：
 
@@ -4498,3 +4496,377 @@ public class PayStatusListener {
 大家思考一下：有没有更优雅的办法传输登录用户信息，让使用MQ的人无感知，依然采用UserContext来随时获取用户。
 
 参考资料：https://docs.spring.io/spring-amqp/docs/2.4.14/reference/html/#post-processing
+
+## 12.3 订单状态的可靠性
+
+> ![image-20250101175035951](./hmallImg/image-20250101175035951.png)
+>
+> 如何保证支付服务与交易服务之间的订单状态一致性？
+>
+> - 首先，支付服务会正在用户支付成功以后利用MQ消息通知交易服务，完成订单状态同步(修改订单状态为已支付)。
+> - 其次，为了保证MQ消息的可靠性，我们采用了生产者确认机制、消费者确认、消费者失败重试等策略，确保消息投递和处理的可靠性。同时也开启了MQ的持久化，避免因服务宕机导致消息丢失。
+> - 最后，我们还在交易服务更新订单状态时做了业务幂等判断，避免因消息重复消费导致订单状态异常。
+>
+> 如果交易服务消息处理失败，有没有什么兜底方案？
+>
+> - 我们可以在交易服务设置定时任务，定期查询订单支付状态。这样即便MQ通知失败，还可以利用定时任务作为兜底方案，确保订单支付状态的最终一致性。
+
+基于业务判断，保证消息消费者业务不被重复处理
+
+不是所有的业务都适合使用业务判断的方式，不适合就使用唯一消息ID的方式
+
+业务判断就是**基于业务本身的逻辑或状态来判断是否是重复的请求或消息**，**不同的业务场景判断的思路也不一样。**
+
+例如我们当前案例中，**处理消息的业务逻辑是把订单状态从未支付修改为已支付**。因此我们就可以在执行业务时判断订单状态是否是未支付，**如果不是则证明订单已经被处理过，无需重复处理。**
+
+![image-20250101175035951](./hmallImg/image-20250101175035951-1735726098800-2.png)
+
+**相比较而言，消息ID的方案需要改造原有的数据库，所以我更推荐使用业务判断的方案。**
+
+以支付修改订单的业务为例，我们需要修改`PayStatusListener`中的`listenPaySuccess`方法：
+
+```Java
+@RabbitListener(bindings = @QueueBinding(
+    value = @Queue("trade.pay.success.queue"),
+    exchange = @Exchange(name = "pay.direct"), // 省略的交换机的类型，默认就是direct
+    key = "pay.success"))
+public void listenPaySuccess(Long orderId) {
+    System.out.println("收到了支付成功的消息:" + orderId + '\n' + "修改订单标记已支付");
+    // 1. 查询订单
+    Order order = orderService.getById(orderId);
+
+    // 2. 判断订单状态是否为未支付(是否重复发送该消息)
+    if (order == null || order.getStatus() != 1) { // 不是未支付
+        // 不做处理
+        return;
+    }
+
+    // 3. 标记订单为已支付
+    orderService.markOrderPaySuccess(orderId);
+}  
+```
+
+orderService.java:
+
+```java
+// 标记订单为已支付
+@Override
+public void markOrderPaySuccess(Long orderId) {
+    Order order = new Order();
+    order.setId(orderId);
+    order.setStatus(2);
+    order.setPayTime(LocalDateTime.now());
+    updateById(order);
+}
+```
+
+上述代码逻辑上符合了幂等判断的需求，但是由于判断和更新是两步动作，因此在极小概率下可能存在线程安全问题。
+
+我们可以合并上述操作为这样：
+
+```Java
+@Override
+public void markOrderPaySuccess(Long orderId) {
+    // UPDATE `order` SET status = ? , pay_time = ? WHERE id = ? AND status = 1
+    lambdaUpdate()
+            .set(Order::getStatus, 2)
+            .set(Order::getPayTime, LocalDateTime.now())
+            .eq(Order::getId, orderId)
+            .eq(Order::getStatus, 1)
+            .update();
+}
+```
+
+注意看，上述代码等同于这样的SQL语句：
+
+```SQL
+UPDATE `order` SET status = ? , pay_time = ? WHERE id = ? AND status = 1
+```
+
+我们在where条件中除了判断id以外，还加上了status必须为1的条件。如果条件不符（说明订单已支付），则SQL匹配不到数据，根本不会执行。
+
+## 12.4 超时订单问题(延迟消息)
+
+取消超时订单：交易服务会在最终用户下单完成后，发送15分钟延迟消息，在15分钟后接收消息，检查支付状态：
+
+- 已支付：更新订单状态为已支付
+- 未支付：更新订单状态为关闭订单，恢复商品库存
+
+在交易服务中利用延迟消息实现订单超时取消功能。其大概思路如下：
+
+![image-20250102173058041](./hmallImg/image-20250102173058041.png)
+
+假如订单超时支付时间为30分钟，理论上说我们应该在下单时发送一条延迟消息，延迟时间为30分钟。这样就可以在接收到消息时检验订单支付状态，关闭未支付订单。
+
+### 4.3.1.定义常量
+
+无论是消息发送还是接收都是在交易服务完成，因此我们在`trade-service`中定义一个常量类，用于记录交换机、队列、RoutingKey等常量：
+
+![img](./hmallImg/1733812099495-25.png)
+
+内容如下：
+
+```Java
+package com.hmall.trade.constants;
+
+public interface MQConstants {
+    String DELAY_EXCHANGE_NAME = "trade.delay.direct";
+    String DELAY_ORDER_QUEUE_NAME = "trade.delay.order.queue";
+    String DELAY_ORDER_KEY = "delay.order.query";
+}
+```
+
+### 4.3.2.配置MQ
+
+在`trade-service`模块的`pom.xml`中引入amqp的依赖：
+
+```XML
+<!--amqp-->
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-amqp</artifactId>
+</dependency>
+```
+
+在`trade-service`的`application.yaml`中添加MQ的配置：
+
+```YAML
+spring:
+  rabbitmq:
+    host: 192.168.150.101
+    port: 5672
+    virtual-host: /hmall
+    username: hmall
+    password: 123
+```
+
+### 4.3.3.改造下单业务，发送延迟消息
+
+接下来，我们改造下单业务，在下单完成后，发送延迟消息，查询支付状态。
+
+修改`trade-service`模块的`com.hmall.trade.service.impl.OrderServiceImpl`类的`createOrder`方法，添加消息发送的代码：
+
+```java
+// 4.扣减库存后
+// 5. 发送延迟消息(使用的mq延迟消息插件)，检测订单支付状态
+/*
+rabbitTemplate.convertAndSend(
+    MQConstants.DELAY_EXCHANGE_NAME,
+    MQConstants.DELAY_ORDER_KEY,
+    order.getId(),
+    new MessagePostProcessor() {
+        @Override
+        public Message postProcessMessage(Message message) throws AmqpException {
+            message.getMessageProperties().setDelay(10000); // 给个10s钟，正常应该是15min，这里我们方便测试
+            return message;
+        }
+    });
+*/
+rabbitTemplate.convertAndSend(
+    MQConstants.DELAY_EXCHANGE_NAME,
+    MQConstants.DELAY_ORDER_KEY,
+    order.getId(),
+    message -> {
+        message.getMessageProperties().setDelay(10000); // 给个10s钟，正常应该是15min，这里我们方便测试
+        return message;
+    });
+```
+
+这里延迟消息的时间应该是15分钟，不过我们为了测试方便，改成10秒。
+
+### 4.3.4.编写查询支付状态接口
+
+由于MQ消息处理时需要查询支付状态，因此我们要在`pay-service`模块定义一个这样的接口，并提供对应的`FeignClient`.
+
+首先，在`hm-api`模块定义三个类：
+
+![img](./hmallImg/1733812099495-27.png)
+
+说明：
+
+- PayOrderDTO：支付单的数据传输实体
+- PayClient：支付系统的Feign客户端
+- PayClientFallback：支付系统的fallback逻辑
+
+`PayOrderDTO`代码如下：
+
+```Java
+package com.hmall.api.dto;
+
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
+
+import java.time.LocalDateTime;
+
+/**
+ * <p>
+ * 支付订单
+ * </p>
+ */
+@Data
+@ApiModel(description = "支付单数据传输实体")
+public class PayOrderDTO {
+    @ApiModelProperty("id")
+    private Long id;
+    @ApiModelProperty("业务订单号")
+    private Long bizOrderNo;
+    @ApiModelProperty("支付单号")
+    private Long payOrderNo;
+    @ApiModelProperty("支付用户id")
+    private Long bizUserId;
+    @ApiModelProperty("支付渠道编码")
+    private String payChannelCode;
+    @ApiModelProperty("支付金额，单位分")
+    private Integer amount;
+    @ApiModelProperty("付类型，1：h5,2:小程序，3：公众号，4：扫码，5：余额支付")
+    private Integer payType;
+    @ApiModelProperty("付状态，0：待提交，1:待支付，2：支付超时或取消，3：支付成功")
+    private Integer status;
+    @ApiModelProperty("拓展字段，用于传递不同渠道单独处理的字段")
+    private String expandJson;
+    @ApiModelProperty("第三方返回业务码")
+    private String resultCode;
+    @ApiModelProperty("第三方返回提示信息")
+    private String resultMsg;
+    @ApiModelProperty("支付成功时间")
+    private LocalDateTime paySuccessTime;
+    @ApiModelProperty("支付超时时间")
+    private LocalDateTime payOverTime;
+    @ApiModelProperty("支付二维码链接")
+    private String qrCodeUrl;
+    @ApiModelProperty("创建时间")
+    private LocalDateTime createTime;
+    @ApiModelProperty("更新时间")
+    private LocalDateTime updateTime;
+}
+```
+
+`PayClient`代码如下：
+
+```Java
+package com.hmall.api.client;
+
+import com.hmall.api.client.fallback.PayClientFallback;
+import com.hmall.api.dto.PayOrderDTO;
+import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+
+@FeignClient(value = "pay-service", fallbackFactory = PayClientFallback.class)
+public interface PayClient {
+    /**
+     * 根据交易订单id查询支付单
+     * @param id 业务订单id
+     * @return 支付单信息
+     */
+    @GetMapping("/pay-orders/biz/{id}")
+    PayOrderDTO queryPayOrderByBizOrderNo(@PathVariable("id") Long id);
+}
+```
+
+`PayClientFallback`代码如下：
+
+```Java
+package com.hmall.api.client.fallback;
+
+import com.hmall.api.client.PayClient;
+import com.hmall.api.dto.PayOrderDTO;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.cloud.openfeign.FallbackFactory;
+
+@Slf4j
+public class PayClientFallback implements FallbackFactory<PayClient> {
+    @Override
+    public PayClient create(Throwable cause) {
+        return new PayClient() {
+            @Override
+            public PayOrderDTO queryPayOrderByBizOrderNo(Long id) {
+                return null;
+            }
+        };
+    }
+}
+```
+
+最后，在`pay-service`模块的`PayController`中实现该接口：
+
+```Java
+@ApiOperation("根据id查询支付单")
+@GetMapping("/biz/{id}")
+public PayOrderDTO queryPayOrderByBizOrderNo(@PathVariable("id") Long id){
+    PayOrder payOrder = payOrderService.lambdaQuery().eq(PayOrder::getBizOrderNo, id).one();
+    return BeanUtils.copyBean(payOrder, PayOrderDTO.class);
+}
+```
+
+### 4.3.5.监听消息，查询支付状态
+
+接下来，我们在`trader-service`编写一个监听器，监听延迟消息，查询订单支付状态：
+
+![img](./hmallImg/1733812099495-28.png)
+
+代码如下：
+
+```Java
+package com.hmall.trade.listener;
+
+import com.hmall.api.client.PayClient;
+import com.hmall.api.dto.PayOrderDTO;
+import com.hmall.trade.constants.MQConstants;
+import com.hmall.trade.domain.po.Order;
+import com.hmall.trade.service.IOrderService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.amqp.rabbit.annotation.Exchange;
+import org.springframework.amqp.rabbit.annotation.Queue;
+import org.springframework.amqp.rabbit.annotation.QueueBinding;
+import org.springframework.amqp.rabbit.annotation.RabbitListener;
+import org.springframework.stereotype.Component;
+
+@Component
+@RequiredArgsConstructor
+public class OrderDelayMessageListener {
+
+    private final IOrderService orderService;
+    private final PayClient payClient;
+
+    @RabbitListener(bindings = @QueueBinding(
+            value = @Queue(name = MQConstants.DELAY_ORDER_QUEUE_NAME),
+            exchange = @Exchange(name = MQConstants.DELAY_EXCHANGE_NAME, delayed = "true"),
+            key = MQConstants.DELAY_ORDER_KEY
+    ))
+    public void listenOrderDelayMessage(Long orderId){
+        // 1.查询订单
+        Order order = orderService.getById(orderId);
+        // 2.检测订单状态，判断是否已支付
+        if(order == null || order.getStatus() != 1){
+            // 订单不存在或者已经支付
+            return;
+        }
+        // 3.未支付，需要查询支付流水状态
+        PayOrderDTO payOrder = payClient.queryPayOrderByBizOrderNo(orderId);
+        // 4.判断是否支付
+        if(payOrder != null && payOrder.getStatus() == 3){
+            // 4.1.已支付，标记订单状态为已支付
+            orderService.markOrderPaySuccess(orderId);
+        }else{
+            // TODO 4.2.未支付，取消订单，回复库存
+            orderService.cancelOrder(orderId);
+        }
+    }
+}
+```
+
+注意，这里要在OrderServiceImpl中实现cancelOrder方法，留作作业大家自行实现。
+
+```java
+@Override
+public void cancelOrder(Long orderId) {
+    // TODO 取消订单
+    log.debug("取消订单，订单id:【{}】", orderId);
+    // 1. 标记订单为已关闭
+
+    // 2. 恢复库存
+}
+```
+
