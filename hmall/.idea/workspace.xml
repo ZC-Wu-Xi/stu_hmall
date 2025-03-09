@@ -5,54 +5,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="cbffef02-ec3c-4555-90bd-be802ac76cf2" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/hm-api/src/main/java/com/hmall/api/client/PayClient.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/hm-api/src/main/java/com/hmall/api/client/fallback/PayClientFallback.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/hm-api/src/main/java/com/hmall/api/dto/PayOrderDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/trade-service/src/main/java/com/hmall/trade/constants/MQConstants.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/trade-service/src/main/java/com/hmall/trade/listener/OrderDelayListener.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/item-service/src/main/java/com/hmall/item/domain/po/ItemDoc.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/item-service/src/test/java/com/hmall/item/es/ElasticDocumentTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/item-service/src/test/java/com/hmall/item/es/ElasticIndexTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../hmall-nginx/logs/access.log" beforeDir="false" afterPath="$PROJECT_DIR$/../hmall-nginx/logs/access.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../hmall-nginx/logs/error.log" beforeDir="false" afterPath="$PROJECT_DIR$/../hmall-nginx/logs/error.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../hmall-nginx/logs/nginx.pid" beforeDir="false" afterPath="$PROJECT_DIR$/../hmall-nginx/logs/nginx.pid" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../hmall.md" beforeDir="false" afterPath="$PROJECT_DIR$/../hmall.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hm-common/src/main/java/com/hmall/common/config/MqConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/hm-common/src/main/java/com/hmall/common/config/MqConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/logs/cart-service/spring.log" beforeDir="false" afterPath="$PROJECT_DIR$/logs/cart-service/spring.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/logs/cart-service/spring.log.2024-12-02.0.gz" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/logs/cart-service/spring.log.2024-12-02.1.gz" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/logs/cart-service/spring.log.2024-12-02.10.gz" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/logs/cart-service/spring.log.2024-12-02.11.gz" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/logs/cart-service/spring.log.2024-12-02.12.gz" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/logs/cart-service/spring.log.2024-12-02.13.gz" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/logs/cart-service/spring.log.2024-12-02.14.gz" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/logs/cart-service/spring.log.2024-12-02.2.gz" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/logs/cart-service/spring.log.2024-12-02.3.gz" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/logs/cart-service/spring.log.2024-12-02.4.gz" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/logs/cart-service/spring.log.2024-12-02.5.gz" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/logs/cart-service/spring.log.2024-12-02.6.gz" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/logs/cart-service/spring.log.2024-12-02.7.gz" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/logs/cart-service/spring.log.2024-12-02.8.gz" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/logs/cart-service/spring.log.2024-12-02.9.gz" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/logs/cart-service/spring.log.2024-12-06.0.gz" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/logs/gateway/spring.log" beforeDir="false" afterPath="$PROJECT_DIR$/logs/gateway/spring.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/logs/gateway/spring.log.2024-12-02.0.gz" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/logs/gateway/spring.log.2024-12-06.0.gz" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/item-service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/item-service/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/logs/item-service/spring.log" beforeDir="false" afterPath="$PROJECT_DIR$/logs/item-service/spring.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/logs/item-service/spring.log.2024-12-02.0.gz" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/logs/item-service/spring.log.2024-12-02.1.gz" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/logs/item-service/spring.log.2024-12-06.0.gz" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/logs/pay-service/spring.log" beforeDir="false" afterPath="$PROJECT_DIR$/logs/pay-service/spring.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/logs/pay-service/spring.log.2024-12-02.0.gz" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/logs/pay-service/spring.log.2024-12-06.0.gz" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/logs/item-service/spring.log.2024-12-09.0.gz" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/logs/trade-service/spring.log" beforeDir="false" afterPath="$PROJECT_DIR$/logs/trade-service/spring.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/logs/trade-service/spring.log.2024-12-02.0.gz" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/logs/trade-service/spring.log.2024-12-06.0.gz" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/logs/user-service/spring.log" beforeDir="false" afterPath="$PROJECT_DIR$/logs/user-service/spring.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/logs/user-service/spring.log.2024-12-02.0.gz" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/logs/user-service/spring.log.2024-12-06.0.gz" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pay-service/src/main/java/com/hmall/pay/controller/PayController.java" beforeDir="false" afterPath="$PROJECT_DIR$/pay-service/src/main/java/com/hmall/pay/controller/PayController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pay-service/src/main/java/com/hmall/pay/service/impl/PayOrderServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/pay-service/src/main/java/com/hmall/pay/service/impl/PayOrderServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pay-service/target/classes/com/hmall/pay/controller/PayController.class" beforeDir="false" afterPath="$PROJECT_DIR$/pay-service/target/classes/com/hmall/pay/controller/PayController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pay-service/target/classes/com/hmall/pay/service/impl/PayOrderServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/pay-service/target/classes/com/hmall/pay/service/impl/PayOrderServiceImpl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/trade-service/src/main/java/com/hmall/trade/listener/PayStatusListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/trade-service/src/main/java/com/hmall/trade/listener/PayStatusListener.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/trade-service/src/main/java/com/hmall/trade/service/IOrderService.java" beforeDir="false" afterPath="$PROJECT_DIR$/trade-service/src/main/java/com/hmall/trade/service/IOrderService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/trade-service/src/main/java/com/hmall/trade/service/impl/OrderServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/trade-service/src/main/java/com/hmall/trade/service/impl/OrderServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/trade-service/target/classes/com/hmall/trade/service/impl/OrderServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/trade-service/target/classes/com/hmall/trade/service/impl/OrderServiceImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -73,6 +37,20 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "ZC-Wu-Xi"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings">
+    <option name="selectedUrlAndAccountId">
+      <UrlAndAccount>
+        <option name="accountId" value="7331e856-6891-4340-ad58-c6750a174749" />
+        <option name="url" value="git@github.com:ZC-Wu-Xi/stu_hmall.git" />
+      </UrlAndAccount>
+    </option>
   </component>
   <component name="MavenImportPreferences">
     <option name="generalSettings">
@@ -97,47 +75,57 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Maven.hmall [package].executor": "Run",
-    "Maven.item-service [clean].executor": "Run",
-    "Maven.item-service [package].executor": "Run",
-    "RequestMappingsPanelOrder0": "0",
-    "RequestMappingsPanelOrder1": "1",
-    "RequestMappingsPanelWidth0": "75",
-    "RequestMappingsPanelWidth1": "75",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "Spring Boot.CartApplication.executor": "Debug",
-    "Spring Boot.GatewayApplication.executor": "Debug",
-    "Spring Boot.HMallApplication.executor": "Run",
-    "Spring Boot.ItemApplication.executor": "Debug",
-    "Spring Boot.ItemApplication2.executor": "Run",
-    "Spring Boot.PayApplication.executor": "Debug",
-    "Spring Boot.TradeApplication.executor": "Debug",
-    "Spring Boot.UserApplication.executor": "Debug",
-    "git-widget-placeholder": "master",
-    "jdk.selected.JAVA_MODULE": "11",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "D:/workspace/stuspace/javaProject/stu_RabbitMQ/mq-demo",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Project",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "run.configurations.included.in.services": "true",
-    "settings.editor.selected.configurable": "editor.preferences.import",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.MqConfig.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ElasticDocumentTest.testBulkDoc.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ElasticDocumentTest.testDeleteDocument.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ElasticDocumentTest.testGetDocumentById.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ElasticDocumentTest.testIndexDocument.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ElasticDocumentTest.testUpdateDocument.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ElasticTest.testConnection.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ElasticTest.testCreateIndex.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ElasticTest.testDeleteIndex.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ElasticTest.testGetIndex.executor&quot;: &quot;Run&quot;,
+    &quot;Maven.hmall [package].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.item-service [clean].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.item-service [package].executor&quot;: &quot;Run&quot;,
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;Spring Boot.CartApplication.executor&quot;: &quot;Debug&quot;,
+    &quot;Spring Boot.GatewayApplication.executor&quot;: &quot;Debug&quot;,
+    &quot;Spring Boot.HMallApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.ItemApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.ItemApplication2.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.PayApplication.executor&quot;: &quot;Debug&quot;,
+    &quot;Spring Boot.TradeApplication.executor&quot;: &quot;Debug&quot;,
+    &quot;Spring Boot.UserApplication.executor&quot;: &quot;Debug&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;jdk.selected.JAVA_MODULE&quot;: &quot;11&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/workspace/stuspace/javaProject/stu_RabbitMQ/mq-demo&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;run.configurations.included.in.services&quot;: &quot;true&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;MavenSettings&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "DatabaseDriversLRU": [
-      "mysql"
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;mysql&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="ReactorSettings">
     <option name="notificationShown" value="true" />
   </component>
@@ -164,7 +152,99 @@
       </set>
     </option>
   </component>
-  <component name="RunManager" selected="Spring Boot.HMallApplication">
+  <component name="RunManager" selected="JUnit.ElasticDocumentTest.testBulkDoc">
+    <configuration name="ElasticDocumentTest.testBulkDoc" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="item-service" />
+      <shortenClasspath name="ARGS_FILE" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.hmall.item.es.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.hmall.item.es" />
+      <option name="MAIN_CLASS_NAME" value="com.hmall.item.es.ElasticDocumentTest" />
+      <option name="METHOD_NAME" value="testBulkDoc" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ElasticDocumentTest.testDeleteDocument" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="item-service" />
+      <shortenClasspath name="ARGS_FILE" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.hmall.item.es.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.hmall.item.es" />
+      <option name="MAIN_CLASS_NAME" value="com.hmall.item.es.ElasticDocumentTest" />
+      <option name="METHOD_NAME" value="testDeleteDocument" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ElasticDocumentTest.testGetDocumentById" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="item-service" />
+      <shortenClasspath name="ARGS_FILE" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.hmall.item.es.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.hmall.item.es" />
+      <option name="MAIN_CLASS_NAME" value="com.hmall.item.es.ElasticDocumentTest" />
+      <option name="METHOD_NAME" value="testGetDocumentById" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ElasticDocumentTest.testIndexDocument" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="item-service" />
+      <shortenClasspath name="ARGS_FILE" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.hmall.item.es.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.hmall.item.es" />
+      <option name="MAIN_CLASS_NAME" value="com.hmall.item.es.ElasticDocumentTest" />
+      <option name="METHOD_NAME" value="testIndexDocument" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ElasticDocumentTest.testUpdateDocument" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="item-service" />
+      <shortenClasspath name="ARGS_FILE" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.hmall.item.es.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.hmall.item.es" />
+      <option name="MAIN_CLASS_NAME" value="com.hmall.item.es.ElasticDocumentTest" />
+      <option name="METHOD_NAME" value="testUpdateDocument" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="JUnit" factoryName="JUnit">
+      <shortenClasspath name="ARGS_FILE" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="CartApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <option name="ACTIVE_PROFILES" value="local" />
       <module name="cart-service" />
@@ -191,6 +271,7 @@
     <configuration name="ItemApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <option name="ACTIVE_PROFILES" value="local" />
       <module name="item-service" />
+      <option name="SHORTEN_COMMAND_LINE" value="ARGS_FILE" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.hmall.item.ItemApplication" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -229,13 +310,21 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-  </component>
-  <component name="SharedIndexes">
-    <attachedChunks>
-      <set>
-        <option value="jdk-21.0.2-openjdk-21.0.2-4caba194b151-4f524021" />
-      </set>
-    </attachedChunks>
+    <configuration default="true" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <option name="SHORTEN_COMMAND_LINE" value="ARGS_FILE" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.ElasticDocumentTest.testBulkDoc" />
+        <item itemvalue="JUnit.ElasticDocumentTest.testGetDocumentById" />
+        <item itemvalue="JUnit.ElasticDocumentTest.testUpdateDocument" />
+        <item itemvalue="JUnit.ElasticDocumentTest.testIndexDocument" />
+        <item itemvalue="JUnit.ElasticDocumentTest.testDeleteDocument" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -267,7 +356,17 @@
       <workItem from="1733813202239" duration="9000" />
       <workItem from="1735725168391" duration="996000" />
       <workItem from="1735806383550" duration="620000" />
-      <workItem from="1735809917928" duration="4147000" />
+      <workItem from="1735809917928" duration="4320000" />
+      <workItem from="1735819987030" duration="253000" />
+      <workItem from="1735820255224" duration="196000" />
+      <workItem from="1735902620353" duration="297000" />
+      <workItem from="1736156592939" duration="4090000" />
+      <workItem from="1736244750496" duration="6894000" />
+      <workItem from="1736409987667" duration="355000" />
+      <workItem from="1741498062697" duration="343000" />
+      <workItem from="1741498420006" duration="42000" />
+      <workItem from="1741498477362" duration="1770000" />
+      <workItem from="1741500273756" duration="3646000" />
     </task>
     <servers />
   </component>

@@ -60,9 +60,15 @@
             <artifactId>spring-cloud-starter-bootstrap</artifactId>
         </dependency>
         <!--seata 分布式事务-->
+<!--        TODO 临时注释掉-->
+<!--        <dependency>-->
+<!--            <groupId>com.alibaba.cloud</groupId>-->
+<!--            <artifactId>spring-cloud-starter-alibaba-seata</artifactId>-->
+<!--        </dependency>-->
+        <!-- elasticsearch 的 RestHighLevelClient依赖 -->
         <dependency>
-            <groupId>com.alibaba.cloud</groupId>
-            <artifactId>spring-cloud-starter-alibaba-seata</artifactId>
+            <groupId>org.elasticsearch.client</groupId>
+            <artifactId>elasticsearch-rest-high-level-client</artifactId>
         </dependency>
     </dependencies>
     <build>
