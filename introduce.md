@@ -14,6 +14,8 @@ ip addr show
 # root 目录下
 docker compose up -d # 启动mysql等
 
+docker ps -a # 查看所有容器，包括未启动的
+
 docker start nacos # 这个
 
 docker rm -f nacos

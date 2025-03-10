@@ -2994,6 +2994,41 @@ GET /items/_search
 
 ![img](./ElasticSearchImg/1741501778526-17.png)
 
+例：
+
+```java
+@SpringBootTest(properties = "spring.profiles.active=local")
+public class ElasticSearchTest {
+    private RestHighLevelClient client;
+
+    @Test
+    void testMatchAll() throws IOException {
+        // 1. 创建request
+        SearchRequest request = new SearchRequest("items"); // 搜索items库
+        // 2. 配置request参数
+        request.source()
+                .query(QueryBuilders.matchAllQuery());
+        // 3. 发送请求
+        SearchResponse response = client.search(request, RequestOptions.DEFAULT);
+        System.out.println("response = " + response);
+    }
+
+    @BeforeEach
+    void setUp() {
+        client = new RestHighLevelClient(RestClient.builder(
+                HttpHost.create("http://192.168.244.130:9200")
+        ));
+    }
+    @AfterEach
+    void tearDown() throws Exception {
+        if (client != null) {
+            client.close();
+        }
+    }
+
+}
+```
+
 ### 2.1.2.解析响应结果
 
 在发送请求以后，得到了响应结果`SearchResponse`，这个类的结构与我们在kibana中看到的响应结果JSON结构完全一致：
@@ -3045,6 +3080,38 @@ elasticsearch返回的结果是一个JSON字符串，结构包含：
   - `SearchHits#getHits()`：获取`SearchHit`数组，也就是文档数组 
     - `SearchHit#getSourceAsString()`：获取文档结果中的`_source`，也就是原始的`json`文档数据
 
+例：
+
+```java
+@Test
+void testMatchAll() throws IOException {
+    // 1. 创建request
+    SearchRequest request = new SearchRequest("items"); // 搜索items库
+    // 2. 配置request参数
+    request.source()
+        .query(QueryBuilders.matchAllQuery());
+    // 3. 发送请求
+    SearchResponse response = client.search(request, RequestOptions.DEFAULT);
+    System.out.println("response = " + response); // 原始的响应结果
+
+    // 4. 解析结果
+    SearchHits searchHits = response.getHits();
+    // 4.1 总条数
+    long total = searchHits.getTotalHits().value;
+    System.out.println("total = " + total);
+    // 4.2 命中的数据
+    SearchHit[] hits = searchHits.getHits();
+    for (SearchHit hit : hits) {
+        // 4.2.1 获取source结果
+        String json = hit.getSourceAsString();
+        System.out.println("json = " + json);
+        // 4.2.2 转为ItemDoc
+        ItemDoc doc = JSONUtil.toBean(json, ItemDoc.class);
+        System.out.println("doc = " + doc);
+    }
+}
+```
+
 ### 2.1.3.总结
 
 文档搜索的基本步骤是：
@@ -3092,7 +3159,7 @@ private void handleResponse(SearchResponse response) {
 
 所有的查询条件都是由QueryBuilders来构建的，叶子查询也不例外。因此整套代码中变化的部分仅仅是query条件构造的方式，其它不动。
 
-例如`match`查询：
+例如`match`单字段查询：
 
 ```Java
 @Test
@@ -3108,7 +3175,7 @@ void testMatch() throws IOException {
 }
 ```
 
-再比如`multi_match`查询：
+再比如`multi_match`多字段查询：
 
 ```Java
 @Test
@@ -3124,7 +3191,7 @@ void testMultiMatch() throws IOException {
 }
 ```
 
-还有`range`查询：
+还有`range`范围查询：
 
 ```Java
 @Test
@@ -3140,7 +3207,7 @@ void testRange() throws IOException {
 }
 ```
 
-还有`term`查询：
+还有`term`不分词查询：
 
 ```Java
 @Test
@@ -3165,6 +3232,7 @@ void testTerm() throws IOException {
 完整代码如下：
 
 ```Java
+// 搜索关键字为脱脂牛奶，品牌必须为德亚，价格必须低于300
 @Test
 void testBool() throws IOException {
     // 1.创建Request
@@ -3177,12 +3245,35 @@ void testBool() throws IOException {
     // 2.3.品牌过滤
     bool.filter(QueryBuilders.termQuery("brand", "德亚"));
     // 2.4.价格过滤
-    bool.filter(QueryBuilders.rangeQuery("price").lte(30000));
+    bool.filter(QueryBuilders.rangeQuery("price").lt(30000));
     request.source().query(bool);
     // 3.发送请求
     SearchResponse response = client.search(request, RequestOptions.DEFAULT);
     // 4.解析响应
     handleResponse(response);
+}
+```
+
+或
+
+```java
+@Test
+void testSearch() throws IOException {
+    // 1. 创建request
+    SearchRequest request = new SearchRequest("items"); // 搜索items库
+    // 2. 组织DSL参数
+    request.source()
+        .query(QueryBuilders.boolQuery()
+               .must(QueryBuilders.matchQuery("name", "脱脂牛奶"))
+               .filter(QueryBuilders.termQuery("brand", "德亚"))
+               .filter(QueryBuilders.rangeQuery("price").lt(30000))
+              );
+    // 3. 发送请求
+    SearchResponse response = client.search(request, RequestOptions.DEFAULT);
+    System.out.println("response = " + response); // 原始的响应结果
+    // 4. 解析结果
+    SearchHits searchHits = response.getHits();
+    parseResponseResult(searchHits);
 }
 ```
 
@@ -3196,22 +3287,26 @@ void testBool() throws IOException {
 
 ```Java
 @Test
-void testPageAndSort() throws IOException {
+void testSortAndPage() throws IOException {
+    // 0. 模拟前端传递的分页参数
     int pageNo = 1, pageSize = 5;
-
-    // 1.创建Request
-    SearchRequest request = new SearchRequest("items");
-    // 2.组织请求参数
-    // 2.1.搜索条件参数
-    request.source().query(QueryBuilders.matchQuery("name", "脱脂牛奶"));
-    // 2.2.排序参数
-    request.source().sort("price", SortOrder.ASC);
-    // 2.3.分页参数
+    // 1. 创建request
+    SearchRequest request = new SearchRequest("items"); // 搜索items库
+    // 2. 组织DSL参数
+    // 2.1 query 条件
+    request.source().query(QueryBuilders.matchAllQuery());
+    // 2.2 分页
     request.source().from((pageNo - 1) * pageSize).size(pageSize);
-    // 3.发送请求
+    // 2.3 排序
+    request.source()
+        .sort("sold", SortOrder.DESC)
+        .sort("price", SortOrder.ASC); // 按销量倒序，如果销量一样按价格升序
+    // 3. 发送请求
     SearchResponse response = client.search(request, RequestOptions.DEFAULT);
-    // 4.解析响应
-    handleResponse(response);
+    System.out.println("response = " + response); // 原始的响应结果
+    // 4. 解析结果
+    SearchHits searchHits = response.getHits();
+    parseResponseResult(searchHits);
 }
 ```
 
@@ -3226,7 +3321,7 @@ void testPageAndSort() throws IOException {
 
 ![img](./ElasticSearchImg/1741501778526-21.png)
 
-示例代码如下：
+**示例代码如下**：
 
 ```Java
 @Test
@@ -3250,7 +3345,7 @@ void testHighlight() throws IOException {
 }
 ```
 
-再来看结果解析，文档解析的部分不变，主要是高亮内容需要单独解析出来，其DSL和JavaAPI的对比如图：
+**再来看结果解析**，文档解析的部分不变，主要是高亮内容需要单独解析出来，其DSL和JavaAPI的对比如图：
 
 ![img](./ElasticSearchImg/1741501778526-22.png)
 
@@ -3265,6 +3360,7 @@ void testHighlight() throws IOException {
 完整代码如下：
 
 ```Java
+// 数据解析
 private void handleResponse(SearchResponse response) {
     SearchHits searchHits = response.getHits();
     // 1.获取总条数
@@ -3293,6 +3389,177 @@ private void handleResponse(SearchResponse response) {
 }
 ```
 
+## 2.6 RestClient查询测试案例
+
+```java
+@SpringBootTest(properties = "spring.profiles.active=local")
+public class ElasticSearchTest {
+    private RestHighLevelClient client;
+
+    /**
+     * 快速入门
+     * @throws IOException
+     */
+    @Test
+    void testMatchAll() throws IOException {
+        // 1. 创建request
+        SearchRequest request = new SearchRequest("items"); // 搜索items库
+        // 2. 配置request参数
+        request.source()
+                .query(QueryBuilders.matchAllQuery());
+        // 3. 发送请求
+        SearchResponse response = client.search(request, RequestOptions.DEFAULT);
+        System.out.println("response = " + response); // 原始的响应结果
+
+        // 4. 解析结果
+        SearchHits searchHits = response.getHits();
+        parseResponseResult(searchHits);
+    }
+
+    /**
+     * 复合查询 bool
+     * 搜索关键字为脱脂牛奶,品牌必须为德亚,价格必须低于300
+     * @throws IOException
+     */
+    @Test
+    void testSearch() throws IOException {
+        // 1. 创建request
+        SearchRequest request = new SearchRequest("items"); // 搜索items库
+        // 2. 组织DSL参数
+        request.source()
+                .query(QueryBuilders.boolQuery()
+                        .must(QueryBuilders.matchQuery("name", "脱脂牛奶"))
+                        .filter(QueryBuilders.termQuery("brand", "德亚"))
+                        .filter(QueryBuilders.rangeQuery("price").lt(30000))
+                );
+        // 3. 发送请求
+        SearchResponse response = client.search(request, RequestOptions.DEFAULT);
+        System.out.println("response = " + response); // 原始的响应结果
+
+        // 4. 解析结果
+        SearchHits searchHits = response.getHits();
+        parseResponseResult(searchHits);
+
+    }
+
+    @Test
+    void testSortAndPage() throws IOException {
+        // 0. 模拟前端传递的分页参数
+        int pageNo = 1, pageSize = 5;
+        // 1. 创建request
+        SearchRequest request = new SearchRequest("items"); // 搜索items库
+        // 2. 组织DSL参数
+        // 2.1 query 条件
+        request.source().query(QueryBuilders.matchAllQuery());
+        // 2.2 分页
+        request.source().from((pageNo - 1) * pageSize).size(pageSize);
+        // 2.3 排序
+        request.source()
+                .sort("sold", SortOrder.DESC)
+                .sort("price", SortOrder.ASC); // 按销量倒序，如果销量一样按价格升序
+        // 3. 发送请求
+        SearchResponse response = client.search(request, RequestOptions.DEFAULT);
+        System.out.println("response = " + response); // 原始的响应结果
+
+        // 4. 解析结果
+        SearchHits searchHits = response.getHits();
+        parseResponseResult(searchHits);
+    }
+
+    /**
+     * 高亮查询
+     * @throws IOException
+     */
+    @Test
+    void testHighlight() throws IOException {
+        // 1. 创建request
+        SearchRequest request = new SearchRequest("items"); // 搜索items库
+        // 2. 组织DSL参数
+        // 2.1 query 条件
+        request.source().query(QueryBuilders.matchQuery("name", " 脱脂牛奶"));
+        // 2.2 高亮条件
+        request.source().highlighter(
+                SearchSourceBuilder.highlight()
+                        .field("name")
+                        .preTags("<em>")
+                        .postTags("</em>")
+        );
+
+        // 3. 发送请求
+        SearchResponse response = client.search(request, RequestOptions.DEFAULT);
+        System.out.println("response = " + response); // 原始的响应结果
+
+        // 4. 解析结果
+        parseResponseResult(response);
+    }
+
+    /**
+     * 解析数据 2.0  可以解析高亮
+     * @param response
+     */
+    private static void parseResponseResult(SearchResponse response) {
+        SearchHits searchHits = response.getHits();
+        // 4.1 总条数
+        long total = searchHits.getTotalHits().value;
+        System.out.println("total = " + total);
+        // 4.2 命中的数据
+        SearchHit[] hits = searchHits.getHits();
+        for (SearchHit hit : hits) {
+            // 4.2.1 获取source结果
+            String json = hit.getSourceAsString();
+            System.out.println("json = " + json);
+            // 4.2.2 转为ItemDoc
+            ItemDoc doc = JSONUtil.toBean(json, ItemDoc.class);
+            // 4.3 处理高亮结果
+            Map<String, HighlightField> hfs = hit.getHighlightFields(); // 获取高亮字段
+            if (hfs != null && !hfs.isEmpty()) {
+                // 4.3.1 根据高亮字段名获取结果
+                HighlightField hf = hfs.get("name");
+                // 4.3.2 获取高亮结果，覆盖非高亮结果
+                String hfName = hf.getFragments()[0].string(); // 返回一个数据，这里只有一个直接用索引0即可，多个可以做字符串的拼接
+                System.err.println(hfName);
+                doc.setName(hfName); // 覆盖非高亮结果
+            }
+            System.out.println("doc = " + doc);
+        }
+    }
+
+
+    /**
+     * 解析数据 1.0 解析数据(不可解析高亮)
+     * @param searchHits
+     */
+    private static void parseResponseResult(SearchHits searchHits) {
+        // 4.1 总条数
+        long total = searchHits.getTotalHits().value;
+        System.out.println("total = " + total);
+        // 4.2 命中的数据
+        SearchHit[] hits = searchHits.getHits();
+        for (SearchHit hit : hits) {
+            // 4.2.1 获取source结果
+            String json = hit.getSourceAsString();
+            System.out.println("json = " + json);
+            // 4.2.2 转为ItemDoc
+            ItemDoc doc = JSONUtil.toBean(json, ItemDoc.class);
+            System.out.println("doc = " + doc);
+        }
+    }
+
+    @BeforeEach
+    void setUp() {
+        client = new RestHighLevelClient(RestClient.builder(
+                HttpHost.create("http://192.168.244.130:9200")
+        ));
+    }
+    @AfterEach
+    void tearDown() throws Exception {
+        if (client != null) {
+            client.close();
+        }
+    }
+}
+```
+
 # 3.数据聚合
 
 聚合（`aggregations`）可以让我们极其方便的实现对数据的统计、分析、运算。例如：
@@ -3307,17 +3574,17 @@ private void handleResponse(SearchResponse response) {
 
 https://www.elastic.co/guide/en/elasticsearch/reference/7.12/search-aggregations.html
 
-聚合常见的有三类：
+**聚合常见的有三类：**
 
--  **桶（****`Bucket`****）**聚合：用来对文档做分组 
-  - `TermAggregation`：按照文档字段值分组，例如按照品牌值分组、按照国家分组
+-  **桶（`Bucket`）聚合**：用来对文档做**分组** 
+  - TermAggregation(`term`)：按照文档字段值分组，例如按照品牌值分组、按照国家分组
   - `Date Histogram`：按照日期阶梯分组，例如一周为一组，或者一月为一组
--  **度量（****`Metric`****）**聚合：用以计算一些值，比如：最大值、最小值、平均值等 
+-  **度量（`Metric`）聚合**：用以**计算**一些值，比如：最大值、最小值、平均值等 
   - `Avg`：求平均值
   - `Max`：求最大值
   - `Min`：求最小值
   - `Stats`：同时求`max`、`min`、`avg`、`sum`等
--  **管道（****`pipeline`****）**聚合：其它聚合的结果为基础做进一步运算 
+-  **管道（`pipeline`）聚合**：其它聚合的结果为基础做进一步运算 
 
 **注意：**参加聚合的字段必须是keyword、日期、数值、布尔类型
 
@@ -3325,7 +3592,7 @@ https://www.elastic.co/guide/en/elasticsearch/reference/7.12/search-aggregations
 
 与之前的搜索功能类似，我们依然先学习DSL的语法，再学习JavaAPI.
 
-### 3.1.1.Bucket聚合
+### 3.1.1.Bucket(分组)聚合
 
 例如我们要统计所有商品中共有哪些商品分类，其实就是以分类（category）字段对数据分组。category值一样的放在同一组，属于`Bucket`聚合中的`Term`聚合。
 
@@ -3334,12 +3601,13 @@ https://www.elastic.co/guide/en/elasticsearch/reference/7.12/search-aggregations
 ```JSON
 GET /items/_search
 {
-  "size": 0, 
-  "aggs": {
-    "category_agg": {
-      "terms": {
-        "field": "category",
-        "size": 20
+  "query": {"match_all": {}}, // 可以省略
+  "size": 0,
+  "aggs": { // 聚合
+    "category_agg": { // 自定义的聚合名称
+      "terms": { // 聚合的类型 分类聚合按照词条进行分组
+        "field": "category", // 参与聚合的字段  按照"分类"字段分组
+        "size": 20 // 聚合结果的最大数量
       }
     }
   }
@@ -3359,6 +3627,112 @@ GET /items/_search
 
 ![img](./ElasticSearchImg/1741501778526-23.png)
 
+- key是分组的字段
+- doc_count是分组后该组的数量
+
+例：
+
+```json
+// terms类型分组 根据category字段值进行分组
+// select category, count(*) from items group by category
+// select brand, count(*) from items group by brand
+GET /items/_search
+{
+  "size": 0,
+  "aggs": {
+    "cate_agg": {
+      "terms": {
+        "field": "category",
+        "size": 5
+      }
+    },
+    "brand_agg": {
+      "terms": {
+        "field": "brand",
+        "size": 5
+      }
+    }
+  }
+}
+```
+
+查询结果：
+
+```json
+{
+  "took" : 57,
+  "timed_out" : false,
+  "_shards" : {
+    "total" : 1,
+    "successful" : 1,
+    "skipped" : 0,
+    "failed" : 0
+  },
+  "hits" : {
+    "total" : {
+      "value" : 10000,
+      "relation" : "gte"
+    },
+    "max_score" : null,
+    "hits" : [ ]
+  },
+  "aggregations" : {
+    "brand_agg" : {
+      "doc_count_error_upper_bound" : 0,
+      "sum_other_doc_count" : 73002,
+      "buckets" : [
+        {
+          "key" : "华为",
+          "doc_count" : 7145
+        },
+        {
+          "key" : "南极人",
+          "doc_count" : 2432
+        },
+        {
+          "key" : "奥古狮登",
+          "doc_count" : 2035
+        },
+        {
+          "key" : "森马",
+          "doc_count" : 2005
+        },
+        {
+          "key" : "恒源祥",
+          "doc_count" : 1856
+        }
+      ]
+    },
+    "cate_agg" : {
+      "doc_count_error_upper_bound" : 0,
+      "sum_other_doc_count" : 7583,
+      "buckets" : [
+        {
+          "key" : "休闲鞋",
+          "doc_count" : 20612
+        },
+        {
+          "key" : "牛仔裤",
+          "doc_count" : 19611
+        },
+        {
+          "key" : "老花镜",
+          "doc_count" : 16222
+        },
+        {
+          "key" : "拉杆箱",
+          "doc_count" : 14347
+        },
+        {
+          "key" : "手机",
+          "doc_count" : 10100
+        }
+      ]
+    }
+  }
+}
+```
+
 ### 3.1.2.带条件聚合
 
 默认情况下，Bucket聚合是对索引库的所有文档做聚合，例如我们统计商品中所有的品牌，结果如下：
@@ -3367,9 +3741,9 @@ GET /items/_search
 
 可以看到统计出的品牌非常多。
 
-但真实场景下，用户会输入搜索条件，因此聚合必须是对搜索结果聚合。那么聚合必须添加限定条件。
+但真实场景下，用户会输入搜索条件，因此聚合必须是对搜索结果聚合。那么聚合必须添加限定条件。即结合查询条件进行带条件的聚合
 
-例如，我想知道价格高于3000元的手机品牌有哪些，该怎么统计呢？
+例如，我想知道价格**高于3000元的手机品牌**有哪些，该怎么统计呢？
 
 我们需要从需求中分析出搜索查询的条件和聚合的目标：
 
@@ -3387,12 +3761,12 @@ GET /items/_search
     "bool": {
       "filter": [
         {
-          "term": {
+          "term": { // 条件
             "category": "手机"
           }
         },
         {
-          "range": {
+          "range": { // 条件
             "price": {
               "gte": 300000
             }
@@ -3404,7 +3778,7 @@ GET /items/_search
   "size": 0, 
   "aggs": {
     "brand_agg": {
-      "terms": {
+      "terms": { // 聚合 进行分组
         "field": "brand",
         "size": 20
       }
@@ -3452,15 +3826,16 @@ GET /items/_search
 
 可以看到，结果中只剩下3个品牌了。
 
-### 3.1.3.Metric聚合
+### 3.1.3.Metric(运算)聚合
 
-上节课，我们统计了价格高于3000的手机品牌，形成了一个个桶。现在我们需要对桶内的商品做运算，获取每个品牌价格的最小值、最大值、平均值。
+上节课，我们统计了价格高于3000的手机品牌，形成了一个个桶。现在我们需要对桶内的商品**做运算**，获取每个品牌价格的**最小值、最大值、平均值**。
 
 这就要用到`Metric`聚合了，例如`stat`聚合，就可以同时获取`min`、`max`、`avg`等结果。
 
 语法如下：
 
 ```JSON
+// 查询大于3000元的手机不同品牌的
 GET /items/_search
 {
   "query": {
@@ -3485,13 +3860,13 @@ GET /items/_search
   "aggs": {
     "brand_agg": {
       "terms": {
-        "field": "brand",
+        "field": "brand", // 对品牌分组
         "size": 20
       },
-      "aggs": {
+      "aggs": { // 嵌套一个aggs聚合
         "stats_meric": {
-          "stats": {
-            "field": "price"
+          "stats": { //  status类型，包括最大最小平均值
+            "field": "price" // 计算各个品牌价格的最大最小平均值
           }
         }
       }
@@ -3520,7 +3895,7 @@ GET /items/_search
 
 ### 3.1.4.总结
 
-aggs代表聚合，与query同级，此时query的作用是？
+`aggs`代表聚合，与query同级，此时query的作用是？
 
 - 限定聚合的的文档范围
 
@@ -3532,9 +3907,9 @@ aggs代表聚合，与query同级，此时query的作用是？
 
 聚合可配置属性有：
 
-- size：指定聚合结果数量
-- order：指定聚合结果排序方式
-- field：指定聚合字段
+- `size`：指定聚合结果数量
+- `order`：指定聚合结果排序方式
+- `field`：指定聚合字段
 
 ## 3.2.RestClient实现聚合
 
@@ -3557,12 +3932,12 @@ void testAgg() throws IOException {
     SearchRequest request = new SearchRequest("items");
     // 2.准备请求参数
     BoolQueryBuilder bool = QueryBuilders.boolQuery()
-            .filter(QueryBuilders.termQuery("category", "手机"))
-            .filter(QueryBuilders.rangeQuery("price").gte(300000));
-    request.source().query(bool).size(0);
+            .filter(QueryBuilders.termQuery("category", "手机")) 
+            .filter(QueryBuilders.rangeQuery("price").gte(300000)); // 查询大于3000元的手机
+    request.source().query(bool).size(0); // 不要查询出的具体条目
     // 3.聚合参数
     request.source().aggregation(
-            AggregationBuilders.terms("brand_agg").field("brand").size(5)
+            AggregationBuilders.terms("brand_agg").field("brand").size(5) // 设置自定义的聚合名称brand_agg并根据field分组
     );
     // 4.发送请求
     SearchResponse response = client.search(request, RequestOptions.DEFAULT);
@@ -3570,7 +3945,7 @@ void testAgg() throws IOException {
     Aggregations aggregations = response.getAggregations();
     // 5.1.获取品牌聚合
     Terms brandTerms = aggregations.get("brand_agg");
-    // 5.2.获取聚合中的桶
+    // 5.2.获取聚合中的桶(分组)
     List<? extends Terms.Bucket> buckets = brandTerms.getBuckets();
     // 5.3.遍历桶内数据
     for (Terms.Bucket bucket : buckets) {
@@ -3579,6 +3954,43 @@ void testAgg() throws IOException {
         System.out.print("brand = " + brand);
         long count = bucket.getDocCount();
         System.out.println("; count = " + count);
+    }
+}
+```
+
+例：
+
+```java
+@Test
+void testAgg() throws IOException {
+    // 1. 创建request
+    SearchRequest request = new SearchRequest("items"); // 搜索items库
+    // 2. 组织DSL参数
+    // 2.1 query 条件 查全部可以省略
+    // request.source().query(QueryBuilders.matchAllQuery());
+    // 2.2 分页
+    request.source().size(0); // 设置`size`为0，就是每页查0条，则结果中就不包含文档，只包含聚合
+    // 2.3 聚合条件
+    String brandAggName = "brandAgg";
+    request.source().aggregation(
+        AggregationBuilders.terms(brandAggName) // 聚合的类型 terms分组查询  参数是聚合查询名
+        .field("brand").size(10) // 根据brand分组，查10个
+    );
+
+    // 3. 发送请求
+    SearchResponse response = client.search(request, RequestOptions.DEFAULT);
+    System.out.println("response = " + response); // 原始的响应结果
+
+    // 4. 解析结果
+    Aggregations aggregations = response.getAggregations();
+    // 4.1 根据聚合名称获取对应的聚合
+    Terms brandTerms = aggregations.get(brandAggName);
+    // 4.2 获取buckets桶(分组)
+    List<? extends Terms.Bucket> buckets = brandTerms.getBuckets();
+    // 4.3 遍历获取每一个bucket
+    for (Terms.Bucket bucket : buckets) {
+        System.out.println("brand = " + bucket.getKeyAsString());
+        System.out.println("count = " + bucket.getDocCount());
     }
 }
 ```

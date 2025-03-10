@@ -5,18 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="cbffef02-ec3c-4555-90bd-be802ac76cf2" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/item-service/src/main/java/com/hmall/item/domain/po/ItemDoc.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/item-service/src/test/java/com/hmall/item/es/ElasticDocumentTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/item-service/src/test/java/com/hmall/item/es/ElasticIndexTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../hmall-nginx/logs/access.log" beforeDir="false" afterPath="$PROJECT_DIR$/../hmall-nginx/logs/access.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../hmall-nginx/logs/error.log" beforeDir="false" afterPath="$PROJECT_DIR$/../hmall-nginx/logs/error.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../hmall-nginx/logs/nginx.pid" beforeDir="false" afterPath="$PROJECT_DIR$/../hmall-nginx/logs/nginx.pid" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../hmall.md" beforeDir="false" afterPath="$PROJECT_DIR$/../hmall.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/item-service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/item-service/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/logs/item-service/spring.log" beforeDir="false" afterPath="$PROJECT_DIR$/logs/item-service/spring.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/logs/item-service/spring.log.2024-12-09.0.gz" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/logs/trade-service/spring.log" beforeDir="false" afterPath="$PROJECT_DIR$/logs/trade-service/spring.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/item-service/src/test/java/com/hmall/item/es/ElasticSearchTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ElasticSearch.md" beforeDir="false" afterPath="$PROJECT_DIR$/../ElasticSearch.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/item-service/logs/item-service/spring.log" beforeDir="false" afterPath="$PROJECT_DIR$/item-service/logs/item-service/spring.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/item-service/target/test-classes/com/hmall/item/es/ElasticDocumentTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/item-service/target/test-classes/com/hmall/item/es/ElasticDocumentTest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../introduce.md" beforeDir="false" afterPath="$PROJECT_DIR$/../introduce.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -38,12 +31,12 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "ZC-Wu-Xi"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;ZC-Wu-Xi&quot;
   }
-}]]></component>
+}</component>
   <component name="GithubPullRequestsUISettings">
     <option name="selectedUrlAndAccountId">
       <UrlAndAccount>
@@ -75,57 +68,62 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Application.MqConfig.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.ElasticDocumentTest.testBulkDoc.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.ElasticDocumentTest.testDeleteDocument.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.ElasticDocumentTest.testGetDocumentById.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.ElasticDocumentTest.testIndexDocument.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.ElasticDocumentTest.testUpdateDocument.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.ElasticTest.testConnection.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.ElasticTest.testCreateIndex.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.ElasticTest.testDeleteIndex.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.ElasticTest.testGetIndex.executor&quot;: &quot;Run&quot;,
-    &quot;Maven.hmall [package].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.item-service [clean].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.item-service [package].executor&quot;: &quot;Run&quot;,
-    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
-    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
-    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
-    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;Spring Boot.CartApplication.executor&quot;: &quot;Debug&quot;,
-    &quot;Spring Boot.GatewayApplication.executor&quot;: &quot;Debug&quot;,
-    &quot;Spring Boot.HMallApplication.executor&quot;: &quot;Run&quot;,
-    &quot;Spring Boot.ItemApplication.executor&quot;: &quot;Run&quot;,
-    &quot;Spring Boot.ItemApplication2.executor&quot;: &quot;Run&quot;,
-    &quot;Spring Boot.PayApplication.executor&quot;: &quot;Debug&quot;,
-    &quot;Spring Boot.TradeApplication.executor&quot;: &quot;Debug&quot;,
-    &quot;Spring Boot.UserApplication.executor&quot;: &quot;Debug&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;jdk.selected.JAVA_MODULE&quot;: &quot;11&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/workspace/stuspace/javaProject/stu_RabbitMQ/mq-demo&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;run.configurations.included.in.services&quot;: &quot;true&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;MavenSettings&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.MqConfig.executor": "Run",
+    "JUnit.ElasticDocumentTest.testBulkDoc.executor": "Run",
+    "JUnit.ElasticDocumentTest.testDeleteDocument.executor": "Run",
+    "JUnit.ElasticDocumentTest.testGetDocumentById.executor": "Run",
+    "JUnit.ElasticDocumentTest.testIndexDocument.executor": "Run",
+    "JUnit.ElasticDocumentTest.testUpdateDocument.executor": "Run",
+    "JUnit.ElasticSearchTest.testAgg.executor": "Run",
+    "JUnit.ElasticSearchTest.testHighlight.executor": "Run",
+    "JUnit.ElasticSearchTest.testMatchAll.executor": "Run",
+    "JUnit.ElasticSearchTest.testSearch.executor": "Run",
+    "JUnit.ElasticSearchTest.testSortAndPage.executor": "Run",
+    "JUnit.ElasticTest.testConnection.executor": "Run",
+    "JUnit.ElasticTest.testCreateIndex.executor": "Run",
+    "JUnit.ElasticTest.testDeleteIndex.executor": "Run",
+    "JUnit.ElasticTest.testGetIndex.executor": "Run",
+    "Maven.hmall [package].executor": "Run",
+    "Maven.item-service [clean].executor": "Run",
+    "Maven.item-service [package].executor": "Run",
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "Spring Boot.CartApplication.executor": "Debug",
+    "Spring Boot.GatewayApplication.executor": "Debug",
+    "Spring Boot.HMallApplication.executor": "Run",
+    "Spring Boot.ItemApplication.executor": "Run",
+    "Spring Boot.ItemApplication2.executor": "Run",
+    "Spring Boot.PayApplication.executor": "Debug",
+    "Spring Boot.TradeApplication.executor": "Debug",
+    "Spring Boot.UserApplication.executor": "Debug",
+    "git-widget-placeholder": "master",
+    "jdk.selected.JAVA_MODULE": "11",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "D:/workspace/stuspace/javaProject/stu_RabbitMQ/mq-demo",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "run.configurations.included.in.services": "true",
+    "settings.editor.selected.configurable": "MavenSettings",
+    "vue.rearranger.settings.migration": "true"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;DatabaseDriversLRU&quot;: [
-      &quot;mysql&quot;
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "mysql"
     ]
   }
-}</component>
+}]]></component>
   <component name="ReactorSettings">
     <option name="notificationShown" value="true" />
   </component>
@@ -152,8 +150,8 @@
       </set>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.ElasticDocumentTest.testBulkDoc">
-    <configuration name="ElasticDocumentTest.testBulkDoc" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="JUnit.ElasticSearchTest.testAgg">
+    <configuration name="ElasticSearchTest.testAgg" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="item-service" />
       <shortenClasspath name="ARGS_FILE" />
       <extension name="coverage">
@@ -163,14 +161,14 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="com.hmall.item.es" />
-      <option name="MAIN_CLASS_NAME" value="com.hmall.item.es.ElasticDocumentTest" />
-      <option name="METHOD_NAME" value="testBulkDoc" />
+      <option name="MAIN_CLASS_NAME" value="com.hmall.item.es.ElasticSearchTest" />
+      <option name="METHOD_NAME" value="testAgg" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ElasticDocumentTest.testDeleteDocument" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="ElasticSearchTest.testHighlight" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="item-service" />
       <shortenClasspath name="ARGS_FILE" />
       <extension name="coverage">
@@ -180,14 +178,14 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="com.hmall.item.es" />
-      <option name="MAIN_CLASS_NAME" value="com.hmall.item.es.ElasticDocumentTest" />
-      <option name="METHOD_NAME" value="testDeleteDocument" />
+      <option name="MAIN_CLASS_NAME" value="com.hmall.item.es.ElasticSearchTest" />
+      <option name="METHOD_NAME" value="testHighlight" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ElasticDocumentTest.testGetDocumentById" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="ElasticSearchTest.testMatchAll" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="item-service" />
       <shortenClasspath name="ARGS_FILE" />
       <extension name="coverage">
@@ -197,14 +195,14 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="com.hmall.item.es" />
-      <option name="MAIN_CLASS_NAME" value="com.hmall.item.es.ElasticDocumentTest" />
-      <option name="METHOD_NAME" value="testGetDocumentById" />
+      <option name="MAIN_CLASS_NAME" value="com.hmall.item.es.ElasticSearchTest" />
+      <option name="METHOD_NAME" value="testMatchAll" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ElasticDocumentTest.testIndexDocument" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="ElasticSearchTest.testSearch" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="item-service" />
       <shortenClasspath name="ARGS_FILE" />
       <extension name="coverage">
@@ -214,14 +212,14 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="com.hmall.item.es" />
-      <option name="MAIN_CLASS_NAME" value="com.hmall.item.es.ElasticDocumentTest" />
-      <option name="METHOD_NAME" value="testIndexDocument" />
+      <option name="MAIN_CLASS_NAME" value="com.hmall.item.es.ElasticSearchTest" />
+      <option name="METHOD_NAME" value="testSearch" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ElasticDocumentTest.testUpdateDocument" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="ElasticSearchTest.testSortAndPage" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="item-service" />
       <shortenClasspath name="ARGS_FILE" />
       <extension name="coverage">
@@ -231,8 +229,8 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="com.hmall.item.es" />
-      <option name="MAIN_CLASS_NAME" value="com.hmall.item.es.ElasticDocumentTest" />
-      <option name="METHOD_NAME" value="testUpdateDocument" />
+      <option name="MAIN_CLASS_NAME" value="com.hmall.item.es.ElasticSearchTest" />
+      <option name="METHOD_NAME" value="testSortAndPage" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -318,11 +316,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.ElasticDocumentTest.testBulkDoc" />
-        <item itemvalue="JUnit.ElasticDocumentTest.testGetDocumentById" />
-        <item itemvalue="JUnit.ElasticDocumentTest.testUpdateDocument" />
-        <item itemvalue="JUnit.ElasticDocumentTest.testIndexDocument" />
-        <item itemvalue="JUnit.ElasticDocumentTest.testDeleteDocument" />
+        <item itemvalue="JUnit.ElasticSearchTest.testAgg" />
+        <item itemvalue="JUnit.ElasticSearchTest.testHighlight" />
+        <item itemvalue="JUnit.ElasticSearchTest.testSortAndPage" />
+        <item itemvalue="JUnit.ElasticSearchTest.testSearch" />
+        <item itemvalue="JUnit.ElasticSearchTest.testMatchAll" />
       </list>
     </recent_temporary>
   </component>
@@ -367,6 +365,9 @@
       <workItem from="1741498420006" duration="42000" />
       <workItem from="1741498477362" duration="1770000" />
       <workItem from="1741500273756" duration="3646000" />
+      <workItem from="1741521077888" duration="2967000" />
+      <workItem from="1741574500417" duration="3432000" />
+      <workItem from="1741596350263" duration="8006000" />
     </task>
     <servers />
   </component>
